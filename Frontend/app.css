@@ -178,3 +178,35 @@ main{
 .card_body > *{
     margin: 10px;
 }
+
+/* Editing the card creation UI*/
+.card_header input, .card textarea{
+    object-fit: contain;
+    min-width: 0;
+    margin: 10px;
+    flex: 1;
+    border: var(--color-background);
+}
+.card_header input, .card textarea:focus{
+    outline: none;
+    font: inherit;
+}
+
+.edit_card_buttons{
+    margin: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.edit_card_buttons button{
+    border-radius: 5px;
+    min-width: 20%;
+    aspect-ratio: 5/1;
+    border:var(--color-background);
+}
+
+.edit_card_buttons #cancel{
+    background: linear-gradient(20deg,var(--color-danger),red);
+}
+.edit_card_buttons #post{
+    background: linear-gradient(20deg,var(--color-success),lime);
+}

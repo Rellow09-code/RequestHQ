@@ -1,3 +1,13 @@
+//Defining useful html elements
+const home_element = document.getElementById('home');
+const nofitication_element = document.getElementById('notifications');
+const message_element = document.getElementById('message');
+const post_add_element = document.getElementById('post_add');
+const menu_element = document.getElementById('post_add');
+const refresh_element = document.getElementById('refresh');
+//sub elements
+const cancel_post = document.getElementById('cancel_post');
+const post = document.getElementById('post');
 const mySelf = {
     id: '123',
     name: 'Hulisani',
@@ -7,9 +17,28 @@ const mySelf = {
 const demoCard = {
     user: mySelf,
     title: 'Business Intelligents analysis',
-    description: 'Hellow everyone I am Mia\n I hope that everyone is having a good day',
+    description: 'Hellow everyone I am Huli\n I hope that everyone is having a good day',
     picture: 'https://s3-alpha.figma.com/hub/file/1389663148/a258a7be-7239-4762-920d-67f7f3f6446e-cover.png'
 };
+//Defining global variables
+const pages = [];
+const main = document.getElementById('home_main');
+const posting_main = document.getElementById('posting_main');
+pages.push(main);
+pages.push(posting_main);
+//Defining event listeners
+home_element === null || home_element === void 0 ? void 0 : home_element.addEventListener('click', () => {
+    go_to_home();
+});
+post_add_element === null || post_add_element === void 0 ? void 0 : post_add_element.addEventListener('click', () => {
+    go_to_posting();
+});
+refresh_element === null || refresh_element === void 0 ? void 0 : refresh_element.addEventListener('click', () => {
+    window.location.href = 'app.html';
+});
+//store the user in memory
+const userString = JSON.stringify(mySelf);
+localStorage.setItem('user', userString);
 function createProfileTab(user) {
     const profile_ui = document.createElement('div');
     profile_ui.className = 'profile_UI';
@@ -36,7 +65,7 @@ function createCardButtons() {
     card_buttons.appendChild(message_button);
     return card_buttons;
 }
-function createCard(card) {
+function createCardElement(card) {
     const card_element = document.createElement('div');
     card_element.className = 'card';
     //Creating the card header
@@ -62,7 +91,65 @@ function createCard(card) {
     card_element.appendChild(card_buttons);
     return card_element;
 }
-const main = document.querySelector('main');
-main === null || main === void 0 ? void 0 : main.appendChild(createCard(demoCard));
+function raisingError(message) {
+    console.log(message);
+}
+function get_user() {
+    const userJason = localStorage.getItem('user') || '';
+    if (!userJason) {
+        raisingError('An error occured, we can\'t recognise you');
+        window.location.href = 'Login.html';
+    }
+    const user = JSON.parse(userJason);
+    return user;
+}
+function create_post() {
+    var _a;
+    const user = get_user();
+    if (!user) {
+        return;
+    }
+    const titleElement = document.getElementById('post_title');
+    const pictureElement = document.getElementById('post_picture');
+    const textElement = document.getElementById('post_text');
+    const title = titleElement === null || titleElement === void 0 ? void 0 : titleElement.value;
+    const description = textElement === null || textElement === void 0 ? void 0 : textElement.value;
+    const picture = (_a = pictureElement === null || pictureElement === void 0 ? void 0 : pictureElement.files) === null || _a === void 0 ? void 0 : _a[0];
+    const post = {
+        user,
+        title,
+        description,
+        picture
+    };
+    createCardElement(post);
+}
+function init_main() {
+    main === null || main === void 0 ? void 0 : main.appendChild(createCardElement(demoCard));
+}
+function init_posts() {
+    (posting_main === null || posting_main === void 0 ? void 0 : posting_main.style) && (posting_main.style.display = 'none');
+}
+function init() {
+    init_main();
+    init_posts();
+}
+function hide_pages() {
+    pages.forEach(element => {
+        (element === null || element === void 0 ? void 0 : element.style) && (element.style.display = 'none');
+    });
+}
+function go_to_home() {
+    hide_pages();
+    if (main) {
+        main.style.display = 'flex';
+    }
+}
+function go_to_posting() {
+    hide_pages();
+    if (posting_main) {
+        posting_main.style.display = 'flex';
+    }
+}
+init();
 export {};
 //# sourceMappingURL=app.js.map

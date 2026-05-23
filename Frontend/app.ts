@@ -1,3 +1,16 @@
+//Defining useful html elements
+const home_element = document.getElementById('home')
+const nofitication_element = document.getElementById('notifications')
+const message_element = document.getElementById('message')
+const post_add_element = document.getElementById('post_add')
+const menu_element = document.getElementById('post_add')
+const refresh_element = document.getElementById('refresh')
+
+//sub elements
+const cancel_post = document.getElementById('cancel_post')
+const post = document.getElementById('post')
+
+//Defining the interfaces and classes
 interface User {
     id:string,
     name:string,
@@ -23,9 +36,34 @@ const mySelf:User = {
 const demoCard:Card = {
     user:mySelf,
     title: 'Business Intelligents analysis',
-    description : 'Hellow everyone I am Mia\n I hope that everyone is having a good day',
+    description : 'Hellow everyone I am Huli\n I hope that everyone is having a good day',
     picture:'https://s3-alpha.figma.com/hub/file/1389663148/a258a7be-7239-4762-920d-67f7f3f6446e-cover.png'
 }
+
+//Defining global variables
+const pages:Array<HTMLElement|null> = []
+const main = document.getElementById('home_main')
+const posting_main = document.getElementById('posting_main')
+
+
+pages.push(main)
+pages.push(posting_main)
+
+//Defining event listeners
+
+home_element?.addEventListener('click',()=>{
+    go_to_home()
+})
+post_add_element?.addEventListener('click',()=>{
+    go_to_posting()
+})
+refresh_element?.addEventListener('click',()=>{
+    window.location.href = 'app.html'
+})
+
+//store the user in memory
+const userString:string = JSON.stringify(mySelf)
+localStorage.setItem('user',userString)
 
 function createProfileTab(user:User):HTMLDivElement{
     const profile_ui = document.createElement('div')
@@ -61,7 +99,7 @@ function createCardButtons():HTMLElement{
     return card_buttons
 }
 
-function createCard(card:Card):HTMLDivElement{
+function createCardElement(card:Card):HTMLDivElement{
     const card_element = document.createElement('div')
     card_element.className = 'card'
 
@@ -96,6 +134,68 @@ function createCard(card:Card):HTMLDivElement{
     return card_element
 }
 
-const main = document.querySelector('main')
-main?.appendChild(createCard(demoCard))
+function raisingError(message:string){
+    console.log(message)
+}
 
+function get_user():User{
+    const userJason:string|false = localStorage.getItem('user') || ''
+    if (!userJason){
+        raisingError('An error occured, we can\'t recognise you')
+        window.location.href = 'Login.html'
+    }
+
+    const user:User = JSON.parse(userJason)
+    return user
+}
+
+function create_post(){
+    const user:User = get_user()
+    if (!user){return}
+
+    const titleElement = document.getElementById('post_title') as HTMLInputElement
+    const pictureElement = document.getElementById('post_picture') as HTMLInputElement
+    const textElement = document.getElementById('post_text') as HTMLTextAreaElement
+
+    const title:string = titleElement?.value
+    const description:string = textElement?.value
+    const picture:any = pictureElement?.files?.[0]
+
+    const post:Card = {
+        user,
+        title,
+        description,
+        picture
+    }
+    createCardElement(post)
+}
+
+function init_main(){
+    main?.appendChild(createCardElement(demoCard))
+}
+function init_posts(){
+    posting_main?.style && (posting_main.style.display = 'none')
+}
+
+function init(){
+    init_main()
+    init_posts()
+}
+function hide_pages(){
+    pages.forEach(element => {
+        element?.style && (element.style.display = 'none')
+    });
+}
+function go_to_home(){
+    hide_pages()
+    if (main){
+        main.style.display = 'flex'
+    }
+}
+function go_to_posting(){
+    hide_pages()
+    if (posting_main){
+        posting_main.style.display = 'flex'
+    }
+}
+init()
