@@ -1,14 +1,14 @@
 //Defining useful html elements
-const home_element = document.getElementById('home')
-const nofitication_element = document.getElementById('notifications')
-const message_element = document.getElementById('message')
-const post_add_element = document.getElementById('post_add')
-const menu_element = document.getElementById('post_add')
-const refresh_element = document.getElementById('refresh')
+const home_element:HTMLElement|null = document.getElementById('home')
+const nofitication_element:HTMLElement|null = document.getElementById('notifications')
+const message_element:HTMLElement|null = document.getElementById('message')
+const post_add_element:HTMLElement|null = document.getElementById('post_add')
+const menu_element:HTMLElement|null = document.getElementById('post_add')
+const refresh_element:HTMLElement|null = document.getElementById('refresh')
 
 //sub elements
-const cancel_post = document.getElementById('cancel_post')
-const post = document.getElementById('post')
+const cancel_post:HTMLElement|null = document.getElementById('cancel_post')
+const post:HTMLElement|null = document.getElementById('post')
 
 //Defining the interfaces and classes
 interface User {
