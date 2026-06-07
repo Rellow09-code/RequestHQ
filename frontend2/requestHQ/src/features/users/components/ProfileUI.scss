@@ -1,0 +1,20 @@
+@use '../../../GlobalVariables.scss' as *;
+
+.profile_UI{
+    height: 90%;
+    aspect-ratio: 3/1;
+    display: flex;
+    align-items: center;
+    color: $color-text-primary;
+    border-radius: 10px;
+    background-color: $color-accent;
+    margin: 5px;
+}
+
+.profile_UI img{
+    height: 90%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 999px;
+    margin: 5px;
+}

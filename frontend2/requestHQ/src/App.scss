@@ -1,0 +1,36 @@
+@use './GlobalVariables.scss' as *;
+/* Global settings */
+body{
+    background-color: $color-background;
+    color: var(--color-primary);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Dealing with the main header */
+
+#main_header{
+    background: $gradient-soft;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: $color-border solid;
+    min-height: 0;
+    color: $color-surface;
+}
+
+.auth_buttons{
+    height: 25%;
+    width: 20%;
+    margin: 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

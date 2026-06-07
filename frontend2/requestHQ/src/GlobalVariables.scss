@@ -1,0 +1,43 @@
+//VARIABLE DEFINTION
+// =========================
+// COLORS
+// =========================
+
+$color-primary: #00cfc8;
+$color-secondary: #008b8b;
+
+$color-background: #f8fcfc;
+$color-surface: #ffffff;
+
+$color-text-primary: #1f2937;
+$color-text-secondary: #6b7280;
+
+$color-accent: #b6fffa;
+
+$color-success: #22c55e;
+$color-warning: #f59e0b;
+$color-danger: #ef4444;
+
+$color-border: #d1d5db;
+
+// =========================
+// SHADOWS
+// =========================
+
+$shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+$shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+// =========================
+// GRADIENTS
+// =========================
+
+$gradient-primary: linear-gradient(135deg, $color-primary, $color-secondary);
+$gradient-soft: linear-gradient(135deg, $color-accent, $color-primary);
+
+// =========================
+// BASE
+// =========================
+
+$font-size-base: 18px;
+$input-bg: #1ad4b2;
+//======================================================================================================================================================

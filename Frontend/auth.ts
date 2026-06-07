@@ -25,6 +25,7 @@ const country_element = document.getElementById('country') as HTMLInputElement
 const password_element = document.getElementById('password') as HTMLInputElement
 const confirm_password_element = document.getElementById('confirm_password') as HTMLInputElement
 
+
 function shake(element: HTMLElement|null) {
     if (!element) return
     element.classList.remove("shake");

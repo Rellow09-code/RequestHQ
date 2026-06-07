@@ -1,0 +1,16 @@
+@use '../../../GlobalVariables.scss' as *;
+
+/* Editing the card creation UI*/
+.btn {
+  border-radius: 10px;
+  min-width: 20%;
+  aspect-ratio: 5 / 1;
+  border: 1px solid $color-border;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: $color-accent;
+}

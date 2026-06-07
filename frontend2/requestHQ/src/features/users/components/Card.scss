@@ -1,0 +1,91 @@
+@use '../../../GlobalVariables.scss' as *;
+
+/* Cards definitions */
+.card{
+    display: flex;
+    flex-direction: column;
+    border: $color-border solid;
+    border-radius: 20px;
+    max-height: 70%;
+    width: 70%;
+    color: $color-text-primary;
+}
+.card_header{
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+.card_body{
+    flex: 9;
+    min-height: 0; 
+    min-width: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card_body img{
+    min-height: 0;
+    min-width: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.card_buttons{
+    display: flex;
+    justify-content: flex-start;
+}
+.card_buttons i{
+    font-size: 30px;
+    margin: 15px;
+}
+
+.card_body > *{
+    margin: 10px;
+}
+
+/* Editing the card creation UI*/
+.card_header input, .card textarea{
+    object-fit: contain;
+    min-width: 0;
+    margin: 10px;
+    flex: 1;
+    border: $color-background;
+}
+.card_header input, .card textarea:focus{
+    outline: none;
+    font: inherit;
+}
+.card_header h3{
+    flex:1;
+}
+#post_title{
+    width: 90%;
+}
+.edit_card_buttons{
+    margin: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.edit_card_buttons button{
+    border-radius: 5px;
+    min-width: 20%;
+    aspect-ratio: 5/1;
+    border:var(--color-background);
+}
+
+.edit_card_buttons #cancel{
+    background: linear-gradient(20deg,$color-danger,red);
+}
+.edit_card_buttons #post{
+    background: linear-gradient(20deg,$color-success,lime);
+}

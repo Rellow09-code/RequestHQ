@@ -1,0 +1,13 @@
+@use '../../../GlobalVariables.scss' as *;
+
+#main_header_buttons{
+    width: 100%;;
+    display: flex;
+    justify-content: end;
+}
+
+#main_header_buttons i{
+    font-size: 50px;
+    margin: 15px;
+    color: $color-background;
+}

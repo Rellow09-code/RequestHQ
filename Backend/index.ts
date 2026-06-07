@@ -1,5 +1,6 @@
 import express from "express";
 import pg from "pg";
+import session from 'express-session';
 
 //Defining basic interfaces
 interface User {
@@ -73,3 +74,9 @@ app.post("/post",(req,res)=>{
 app.listen(PORT, () => {
     console.log(`Server listening on on http://localhost:${PORT}`);
 });
+
+app.use(session({
+  secret: process.env.SESSION_SECRET!,
+  resave: false,
+  saveUninitialized: true
+}));
