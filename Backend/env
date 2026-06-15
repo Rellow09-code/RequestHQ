@@ -1,7 +1,0 @@
-DATABASE_URL='postgresql://neondb_owner:npg_FuqeySB2xO4n@ep-young-credit-a4s7fsth-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
-
-GOOGLE_CLIENT_ID=your_client_id
-GOOGLE_CLIENT_SECRET=your_client_secret
-SESSION_SECRET=super_secret_key
-
-HOME_URL = http://127.0.0.1:5500/Frontend/app.html

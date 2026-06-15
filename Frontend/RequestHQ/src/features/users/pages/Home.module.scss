@@ -1,0 +1,21 @@
+@use '../../../GlobalVariables.scss' as *;
+
+#main_header{
+    background: $gradient-soft;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border: $color-border solid;
+    min-height: 0;
+}
+
+main{
+    flex: 9;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    gap: 20px;
+}
+
