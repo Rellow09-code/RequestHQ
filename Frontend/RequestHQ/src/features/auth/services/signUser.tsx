@@ -1,4 +1,5 @@
-import type { apiResponseType, SignRequestType } from "../types/specific_types"
+import type { SignRequestType } from "../types/specific_types"
+import type { apiResponseType } from "../../../shared/types/apiTypes"
 
 export default async function signInUser():Promise<apiResponseType>{
     const userInfo:string = await JSON.parse(localStorage.getItem('user_info') || '{}')
@@ -26,12 +27,15 @@ export default async function signInUser():Promise<apiResponseType>{
         })
         const response_json = await server_response.json()
         if (!server_response.ok){
-            return {ok: false, response: response_json, error:`${server_response.statusText}: ${response_json.error}`}
+            const results:apiResponseType = {ok: false, response: response_json, error:`${server_response.statusText}: ${response_json.error}`}
+            return results
         }
-        return {ok: true, response: response_json, error:null}
+        const results:apiResponseType = {ok: true, response: response_json, error:null}
+        return results
     }
     catch (error){
         console.log(`${error}`)
-        return {ok :false, response: null, error: `${error}`}
+        const results:apiResponseType = {ok :false, response: null, error: `${error}`}
+        return results
     }
 }

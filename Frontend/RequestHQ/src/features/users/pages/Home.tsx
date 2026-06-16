@@ -1,27 +1,46 @@
 import ProfileUI from "../components/ProfileUI"
 import PostCard from "../components/PostCard"
 import Icons from "../components/Icons"
-import Card from "../components/Card"
 import styles from './Home.module.scss'
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useMoveInvalidAuth } from "../../../shared/hooks/moveInvalidAuth"
+import getPosts from "../services/getPosts"
+import type { postsResponse } from "../types/commonTypes"
+import Card from "../components/Card"
 
-export default function Home(){
+export default function Home(){    
+    useMoveInvalidAuth()
     let [page, setPage] = useState(0)
+    const [posts, setPosts] = useState<postsResponse[]>([]);
+    useEffect(() => {
+        async function loadPosts() {
+            const results = await getPosts();
+
+            if (results.ok && results.response?.posts) {
+                setPosts(results.response.posts);
+            }
+        }
+
+        loadPosts();
+    }, []);
     return(
         <>
             <header id={styles.main_header}>
                 <ProfileUI/>
-                <Icons/>
+                <Icons setPage={setPage}/>
             </header>
             
             {page==0 && 
             <main id={styles.home_main}>
-                <Card/>
-                <Card/>
-                <Card/>
+                {posts.map(post => (
+                    <Card
+                        key={post.id}
+                        post={post}
+                    />
+                ))}
             </main>}
 
-            {page==1 && <main id={styles.posting_main}><PostCard/></main>}
+            {page==3 && <main id={styles.posting_main}><PostCard/></main>}
         </>
     )
 }

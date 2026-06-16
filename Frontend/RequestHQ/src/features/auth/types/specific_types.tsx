@@ -31,10 +31,4 @@ interface LogRequestType{
     password:string
 }
 
-interface apiResponseType{
-    ok:boolean,
-    response: null|object,
-    error:null|string
-}
-
-export type {UserInfoType, ContactType, PasswordStrengthType, SignRequestType, LogRequestType,apiResponseType}
+export type {UserInfoType, ContactType, PasswordStrengthType, SignRequestType, LogRequestType}

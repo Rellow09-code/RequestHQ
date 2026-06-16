@@ -1,24 +1,50 @@
 import ProfileUI from "./ProfileUI"
 import styles from'./Card.module.scss'
+import { useState } from "react"
+import type { postCardType } from "../types/commonTypes"
+import postCard from "../services/postCard"
 
 export default function PostCard(){
+    const [post_card, setPostCard] = useState<postCardType>({title:'', body:'',picture:null})
+    const [feedback, setFeedback] = useState<string>('')
+    async function post(){
+        if (!post_card.body){
+            setFeedback('Invalid post body')
+            return
+        }
+        setFeedback('')
+        const results = await postCard(post_card)
+        if (!results.ok){
+            setFeedback(`Failed to post because: ${results.error}`)
+            return
+        }
+        setFeedback(`Successfully posted!`)
+    }
+
+    function updatePostCard(key:string, value:any){
+        setPostCard((old_obj:postCardType) =>{
+            return {...old_obj, [key]:value}
+        })
+    }
+
     return (
         <div className={styles.card}>
             <section className={styles.card_header}>
                 <ProfileUI/>
-                <h3><input id={styles.post_title} type="text" placeholder="Title"/></h3>
+                <h3><input value={post_card.title} onChange={(e)=>updatePostCard('title',e.target.value)} id={styles.post_title} type="text" placeholder="Title"/></h3>
             </section>
             <section className={styles.card_body}>
-                <textarea id={styles.post_text} placeholder="text"></textarea>
+                <textarea value={post_card.body} onChange={(e)=>updatePostCard('body',e.target.value)} id={styles.post_text} placeholder="text"></textarea>
                 <div className={styles.image_upload}>
                     <label>Upload a picture</label>
-                    <input id={styles.post_picture} type="file" accept="image/*"/>
+                    <input onChange={(e)=>updatePostCard('picture',e.target.files?.[0])} id={styles.post_picture} type="file" accept="image/*"/>
                 </div>
             </section>
             <section className={styles.edit_card_buttons}>
                 <button id={styles.cancel_post}>Cancel</button>
-                <button id={styles.post}>Post</button>
+                <button onClick={post} id={styles.post}>Post</button>
             </section>
+            <h4 className={styles.feedback}>{feedback}</h4>
         </div>
     )
 }

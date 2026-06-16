@@ -3,7 +3,8 @@ import type { setStateProp } from '../types/props'
 import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { gaugePasswordStrength } from '../services/passwordStrength'
-import type { apiResponseType, PasswordStrengthType } from '../types/specific_types'
+import type { PasswordStrengthType } from '../types/specific_types'
+import type { apiResponseType } from '../../../shared/types/apiTypes'
 import signInUser from '../services/signUser'
 
 export default function Authentication(props:setStateProp){
@@ -28,12 +29,18 @@ export default function Authentication(props:setStateProp){
         }
         localStorage.setItem('password',password)
         setServerResponse('')
-        signInUser().then((response:apiResponseType)=>{
-            if (response.ok){
+        signInUser().then((results:apiResponseType)=>{
+            if (results.ok){
+                if (!results.response?.user_info){
+                    setServerResponse(`An unknown error occured`)
+                    return
+                }
+                const user_info_str : string = JSON.stringify(results.response.user_info)
+                localStorage.setItem('user',user_info_str)
                 navigate('/Home')
                 return
             }
-            setServerResponse(`${response.error}`)
+            setServerResponse(`${results.error}`)
         })
     }
 

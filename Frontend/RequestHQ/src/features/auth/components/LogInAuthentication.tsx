@@ -1,7 +1,7 @@
 import styles from './InfoQuery.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import type { apiResponseType } from '../types/specific_types'
+import type { apiResponseType } from '../../../shared/types/apiTypes'
 import logUser from '../services/logUser'
 import { emailSchema, passwordSchema } from '../types/zod'
 
@@ -27,12 +27,18 @@ export default function LogInAuthentication(){
             return
         }
         setFeedback('')
-        logUser({email,password}).then((response:apiResponseType)=>{
-            if (response.ok){
+        logUser({email,password}).then((results:apiResponseType)=>{
+            if (results.ok){
+                if (!results.response?.user_info){
+                    setFeedback(`An unknown error occured`)
+                    return
+                }
+                const user_info_str : string = JSON.stringify(results.response.user_info)
+                localStorage.setItem('user',user_info_str)
                 navigate('/Home')
                 return
             }
-            setFeedback(`${response.error}`)
+            setFeedback(`${results.error}`)
         })
     }
 

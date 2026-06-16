@@ -11,6 +11,11 @@ import { userInfo } from "node:os";
 import { generateAccessToken } from "./generateTokens.ts";
 import { StatusCodes } from "http-status-codes";
 import { compare } from "bcrypt";
+import multer from "multer"
+import { uploadToCloud } from "./fileUpload.ts";
+
+//setup multer for file uploads
+const upload = multer({dest:'uploads/'})
 
 //connecting to the database
 const { Pool } = pg;
@@ -76,7 +81,7 @@ app.post("/signIn",async (req,res)=>{
     }
     catch(error){
         console.log(`Failed to sign in user because ${error}`)
-        return res.status(StatusCodes.UNAUTHORIZED).json({'error':`Please re-check your information because: ${error}`})
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({'message':`Unexpected error: ${error}`})
     }
 })
 
@@ -116,37 +121,47 @@ app.post("/logIn",async (req,res)=>{
     }
     catch(error){
         console.log(`Failed to log in user because ${error}`)
-        return res.status(StatusCodes.UNAUTHORIZED).json({'error':`Please re-check your information because: ${error}`})
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({'message':`Unexpected error: ${error}`})
     }
 })
 
-app.post("/post",async (req,res)=>{
+//services
+app.post("/post", upload.single("picture"), async (req, res) => {
+  try {
+    const {id, title, body } = req.body;
+    let imageUrl: string | null = null;
+
+    if (req.file) {
+      imageUrl = await uploadToCloud(
+        req.file.path,
+        `post_${Date.now()}_${id}`
+      );
+    }
+
+    await pool.query(
+      "INSERT INTO posts (user_id, title, body, picture) VALUES ($1, $2, $3, $4)",
+      [id, title, body, imageUrl]
+    );
+
+    res.status(StatusCodes.OK).json({ message: 'Posted successfully', imageUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Upload failed because ${error}` });
+  }
+});
+
+app.get('/posts',async (req, res)=>{
     try{
-        let {user_id, title, body, picture} = req.body
-
-        if (!user_id){
-            return res.status(401).json({'message':`Please re-check your information`})
-        }
-
-        const values:Array<string> = [
-            user_id,
-            title,
-            body,
-            picture
-        ]
-
-        for (const value of values){
-            console.log(value)
-        }
-        await pool.query(
+        console.log('Retrieving the posts')
+        const posts = await pool.query(
             `
-            INSERT INTO POSTS (user_id,title,body,picture)
-            VALUES ($1, $2, $3, $4)
-            `,
-            values
+            SELECT p.*, u.picture, u.name, u.surname, u.middle_name FROM posts p JOIN users u ON p.user_id = u.id
+            `
         )
+        res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
+        console.log('successful')
     }catch(error){
-        return res.status(401).json({'message':`Please re-check your information because: ${error}`})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Posts retrieval failed because ${error}` });
     }
 })
 

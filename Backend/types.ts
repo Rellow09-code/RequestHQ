@@ -23,7 +23,7 @@ interface responseType{
     message:string,
     status:string
 }
-export interface SignRequestType {
+interface SignRequestType {
     user_info: {
         name: string;
         middle_name: string;
@@ -33,7 +33,7 @@ export interface SignRequestType {
 
     contact_info: {
         email: string;
-        phone: string; // +27XXXXXXXXX
+        phone: string;
         street: string;
         city: string;
         province: string;
