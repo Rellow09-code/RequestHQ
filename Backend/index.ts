@@ -165,6 +165,8 @@ app.get('/posts',async (req, res)=>{
     }
 })
 
-app.listen(PORT, () => {
-    console.log(`Server listening on on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server listening on on http://localhost:${PORT}`);
+// });
+
+export default app
