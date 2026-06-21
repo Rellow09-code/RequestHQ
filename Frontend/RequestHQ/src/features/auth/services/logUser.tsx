@@ -1,5 +1,5 @@
 import type { LogRequestType } from "../types/specific_types"
-import type { apiResponseType, userType } from "../../../shared/types/apiTypes"
+import type { apiResponseType } from "../../../shared/types/apiTypes"
 
 export default async function logUser(props:LogRequestType):Promise<apiResponseType>{
     const {email, password} = props

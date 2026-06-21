@@ -1,6 +1,6 @@
 import styles from './InfoQuery.module.scss'
 import type { setStateProp } from '../types/props'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { UserInfoType } from '../types/specific_types'
 
 export default function UserInfo({setPage}:setStateProp){
