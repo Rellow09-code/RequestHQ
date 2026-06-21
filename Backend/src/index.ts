@@ -3,14 +3,10 @@ dotenv.config();
 import express from "express";
 import pg from "pg";
 import cors from 'cors'
-import type { SignRequestType } from "./types.ts";
 import { logRequestSchema, signRequestSchema } from "./zodSchemas.ts";
 import { z } from 'zod'
 import { compareHashes, hashPassword } from "./hashPassword.ts";
-import { userInfo } from "node:os";
-import { generateAccessToken } from "./generateTokens.ts";
 import { StatusCodes } from "http-status-codes";
-import { compare } from "bcrypt";
 import multer from "multer"
 import { uploadToCloud } from "./fileUpload.ts";
 
@@ -26,6 +22,9 @@ const pool = new Pool({
 //creating the app
 const app = express();
 const PORT = 3000;
+
+//use unused important variables
+PORT; z;
 
 //Allowing cross origin server request and json
 app.use(cors({
@@ -165,8 +164,10 @@ app.get('/posts',async (req, res)=>{
     }
 })
 
-// app.listen(PORT, () => {
-//     console.log(`Server listening on on http://localhost:${PORT}`);
-// });
+if (process.env.PRODUCTION == 'FALSE'){
+    app.listen(PORT, () => {
+        console.log(`Server listening on on http://localhost:${PORT}`);
+    });
+}
 
 export default app
