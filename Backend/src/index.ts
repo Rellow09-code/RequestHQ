@@ -173,6 +173,7 @@ app.get('/posts',async (req, res)=>{
         res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
         console.log('successful')
     }catch(error){
+        console.log(`Failed to get post because ${error}`)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Posts retrieval failed because ${error}` });
     }
 })
