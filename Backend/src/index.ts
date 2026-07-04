@@ -37,6 +37,7 @@ app.use(express.json())
 
 //Defining paths
 app.get("/", (req, res) => {
+    console.log('Server is running!')
     return res.status(StatusCodes.OK).json({message:"Server is running!"});
 });
 
@@ -47,6 +48,7 @@ app.post("/signIn",async (req,res)=>{
         //Verify the schema
         const results = signRequestSchema.safeParse(req.body)
         if (!results.success){
+            console.log('error: ', results.error.flatten())
             return res.status(StatusCodes.UNAUTHORIZED).json({'message':'bad input', 'error': results.error.flatten()})
         }
         //Extract the users data
@@ -63,6 +65,7 @@ app.post("/signIn",async (req,res)=>{
             [email]
         )
         if (user_exist.rows.length > 0){
+            console.log('User already signed up, please log in instead')
             return res.status(StatusCodes.CONFLICT).json({'message':'bad input', 'error': 'User already signed up, please log in instead'})
         }
 
@@ -93,6 +96,7 @@ app.post("/logIn",async (req,res)=>{
         //Verify the schema
         const results = logRequestSchema.safeParse(req.body)
         if (!results.success){
+            console.log('error: ',results.error.flatten())
             return res.status(StatusCodes.UNAUTHORIZED).json({'message':'bad input', 'error': results.error.flatten()})
         }
         //Extract the users data
@@ -106,6 +110,7 @@ app.post("/logIn",async (req,res)=>{
             [email]
         )
         if (user_exist.rows.length === 0){
+            console.log('User does not exist, please sign in')
             return res.status(StatusCodes.CONFLICT).json({'message':'bad input', 'error': 'User does not exist, please sign in'})
         }
 
@@ -113,6 +118,7 @@ app.post("/logIn",async (req,res)=>{
         const hashed_password = user_exist.rows[0].password
         compareHashes(password, hashed_password).then((results)=>{
             if (!results){
+                console.log('Incorrect email or password')
                 return res.status(StatusCodes.UNAUTHORIZED).json({'error':`Incorrect email or password`})
             }
             //Send respond back to the user
@@ -144,10 +150,11 @@ app.post("/post", upload.single("picture"), async (req, res) => {
         [id, title, body, `${imageUrl}`]
     );
 
-    res.status(StatusCodes.OK).json({ message: 'Posted successfully', imageUrl });
+    console.log('Posted successfully')
+    return res.status(StatusCodes.OK).json({ message: 'Posted successfully', imageUrl });
   } catch (error) {
-    console.error(error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Upload failed because ${error}` });
+    console.error('error: ',error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Upload failed because ${error}` });
   }
 });
 
@@ -170,11 +177,11 @@ app.get('/posts',async (req, res)=>{
             `
         )
         console.log(posts)
-        res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
         console.log('successful')
+        return res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
     }catch(error){
         console.log(`Failed to get post because ${error}`)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Posts retrieval failed because ${error}` });
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Posts retrieval failed because ${error}` });
     }
 })
 
