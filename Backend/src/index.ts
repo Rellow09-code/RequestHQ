@@ -158,7 +158,7 @@ app.get('/posts',async (req, res)=>{
             `
             SELECT
                 posts.*,
-                posts.picture,
+                posts.post_picture,
                 users.name,
                 users.surname,
                 users.middle_name

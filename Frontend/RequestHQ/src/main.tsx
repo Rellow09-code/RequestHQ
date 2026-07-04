@@ -6,7 +6,10 @@ import SignUp from './features/auth/pages/SignUp.tsx'
 import Home from './features/users/pages/Home.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LogIn from './features/auth/pages/LogIn.tsx'
+import startServer from './shared/services/startServer.tsx'
 
+//Tries to awaken the server before the user request for anything
+startServer()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
