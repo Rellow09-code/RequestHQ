@@ -3,7 +3,7 @@ import { z } from "zod";
 export const signRequestSchema = z.object({
     user_info: z.object({
         name: z.string().min(2).max(30).regex(/^[A-Za-z]+$/),
-        middle_name: z.string().min(2).max(30).regex(/^[A-Za-z]+$/),
+        middle_name: z.string(),
         surname: z.string().min(2).max(30).regex(/^[A-Za-z]+$/),
         birth_date: z.iso.date()
     }),
