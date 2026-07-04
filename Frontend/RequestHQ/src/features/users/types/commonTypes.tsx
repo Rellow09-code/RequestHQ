@@ -16,7 +16,7 @@ interface postsResponse{
     id: number,
     middle_name: string|null,
     name: string,
-    picture: null,
+    post_picture: null|string,
     surname: string,
     title: string,
     user_id: number,

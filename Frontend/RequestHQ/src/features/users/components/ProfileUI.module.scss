@@ -1,20 +1,82 @@
 @use '../../../GlobalVariables.scss' as *;
 
-.profile_UI{
-    height: 90%;
-    aspect-ratio: 3/1;
-    display: flex;
-    align-items: center;
-    color: $color-text-primary;
-    border-radius: 10px;
-    background-color: $color-accent;
-    margin: 5px;
+/* ==========================
+   PROFILE CONTAINER
+========================== */
+
+.profile_UI {
+
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+
+    padding:.4rem .75rem;
+
+    border-radius:999px;
+
+    background:rgba(182,255,250,.35);
+
+    border:1px solid rgba(0,0,0,.06);
+
+    transition:
+        transform .2s ease,
+        background-color .2s ease,
+        box-shadow .2s ease;
+
+    cursor:pointer;
+
+    user-select:none;
 }
 
-.profile_UI img{
-    height: 90%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 999px;
-    margin: 5px;
+/* subtle hover lift */
+.profile_UI:hover {
+
+    transform:translateY(-2px);
+
+    background:rgba(0,207,200,.12);
+
+    box-shadow:$shadow-soft;
+}
+
+/* ==========================
+   AVATAR
+========================== */
+
+.profile_UI img {
+
+    width:36px;
+    height:36px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid white;
+
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+
+/* ==========================
+   TEXT
+========================== */
+
+.profile_UI p {
+
+    margin:0;
+
+    font-size:.9rem;
+
+    color:$color-text-primary;
+
+    font-weight:600;
+
+    white-space:nowrap;
+}
+
+/* optional subtle emphasis on name */
+.profile_UI b {
+
+    color:$color-secondary;
+
+    font-weight:700;
 }

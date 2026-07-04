@@ -14,23 +14,36 @@ body{
 /* Dealing with the main header */
 
 .main_header{
-    background: $gradient-soft;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: $color-border solid;
-    min-height: 0;
-    color: $color-surface;
-    background-color: black;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:4rem 8%;
+    gap:4rem;
+
+    background:$gradient-primary;
+
+    color:$color-surface;
+
+    overflow:hidden;
 }
 
-.auth_buttons{ 
-    height: 25%;
-    width: 20%;
-    margin: 2vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.main_header h1{
+    font-size:clamp(3rem,5vw,5rem);
+    line-height:1.1;
+    font-weight:800;
+    max-width:600px;
+
+    text-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.auth_buttons{
+    display:flex;
+    flex-direction:column;
+
+    gap:1rem;
+
+    width:280px;
 }

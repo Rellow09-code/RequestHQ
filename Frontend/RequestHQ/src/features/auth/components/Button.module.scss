@@ -1,16 +1,56 @@
 @use '../../../GlobalVariables.scss' as *;
 
 /* Editing the card creation UI*/
-.btn {
-  border-radius: 10px;
-  min-width: 20%;
-  aspect-ratio: 5 / 1;
-  border: 1px solid $color-border;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 500;
-  background-color: $color-accent;
+.btn{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:.9rem 2rem;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        background .25s;
+
+    box-shadow:$shadow-soft;
+
+}
+
+.signUp{
+
+    background:$gradient-primary;
+
+    color:white;
+
+}
+.signUp:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:$shadow-medium;
+}
+
+.logIn{
+
+    background:white;
+
+    color:$color-secondary;
+
+    border:2px solid $color-primary;
+
+}
+.logIn:hover{
+
+    background:$color-accent;
+
+    transform:translateY(-3px);
+
 }

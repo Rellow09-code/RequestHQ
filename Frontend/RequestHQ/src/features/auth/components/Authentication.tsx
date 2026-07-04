@@ -6,6 +6,7 @@ import { gaugePasswordStrength } from '../services/passwordStrength'
 import type { PasswordStrengthType } from '../types/specific_types'
 import type { apiResponseType } from '../../../shared/types/apiTypes'
 import signInUser from '../services/signUser'
+import Loading from '../../../shared/components/Loading'
 
 export default function Authentication(props:setStateProp){
     const [password, setPassword] = useState<string>('')
@@ -14,6 +15,7 @@ export default function Authentication(props:setStateProp){
     const [shake, setShake] = useState<boolean>(false)
     const [server_response, setServerResponse] = useState<string>('')
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     useEffect(()=>setPasswordStats(gaugePasswordStrength(password)), [password])
 
@@ -29,24 +31,32 @@ export default function Authentication(props:setStateProp){
         }
         localStorage.setItem('password',password)
         setServerResponse('')
-        signInUser().then((results:apiResponseType)=>{
-            if (results.ok){
-                if (!results.response?.user_info){
-                    setServerResponse(`An unknown error occured`)
+    
+        setLoading(true)
+        try{
+            signInUser().then((results:apiResponseType)=>{
+                if (results.ok){
+                    if (!results.response?.user_info){
+                        setServerResponse(`An unknown error occured`)
+                        return
+                    }
+                    const user_info_str : string = JSON.stringify(results.response.user_info)
+                    localStorage.setItem('user',user_info_str)
+                    navigate('/Home')
                     return
                 }
-                const user_info_str : string = JSON.stringify(results.response.user_info)
-                localStorage.setItem('user',user_info_str)
-                navigate('/Home')
-                return
-            }
-            setServerResponse(`${results.error}`)
-        })
+                setServerResponse(`${results.error}`)
+            })
+        }
+        finally{
+            setLoading(false)
+        }
     }
 
     const setPage = props.setPage
     return (
         <section className={styles.main_component}>
+            <Loading show={loading} message='Signing in...'/>
             <h1>Keep your account safe</h1>
             <section id={styles.userInfo} className={styles.userInfo}>
                 <section className={styles.card}>

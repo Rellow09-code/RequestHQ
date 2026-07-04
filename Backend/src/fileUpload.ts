@@ -1,4 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv'
+dotenv.config()
 
 // Configure ONCE (outside function)
 cloudinary.config({
@@ -6,6 +8,7 @@ cloudinary.config({
   api_key: "232774535524376",
   api_secret: `${process.env.CLOUDINARY_SECRET}`,
 });
+console.log(process.env.CLOUDINARY_SECRET)
 
 export async function uploadToCloud(filePath: string, public_id: string) {
   try {

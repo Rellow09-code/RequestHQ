@@ -11,6 +11,7 @@ export default async function getPosts() {
         if (!response.ok){
             return {ok: false, response: response_json, error:`${response.statusText}: ${response_json.error}`}
         }
+        console.log(response_json)
         return {ok: true, response: response_json, error:null}
 
     }catch(error){

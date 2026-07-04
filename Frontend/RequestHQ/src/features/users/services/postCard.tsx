@@ -3,10 +3,6 @@ import type { postCardType } from "../types/commonTypes";
 
 export default async function postCard(card:postCardType) {
     const {title='', body='', picture=null} = card
-    const form_data:FormData = new FormData()
-    if (picture){
-        form_data.append('picture',picture)
-    }
     if (!body){
         return {ok: false, response: null, error:`Invalid post body`}
     }
@@ -16,21 +12,20 @@ export default async function postCard(card:postCardType) {
         const url:string = import.meta.env.VITE_BACKEND_URL
         const user_str:string|null = localStorage.getItem('user')
         if (!user_str){
-            throw Error('Invalid user, please try signing in again')
+            return {ok: false, response: null, error:`Invalid user, please try signing in again`}
         }
         const user:userType = JSON.parse(user_str)
+        const form_data:FormData = new FormData()
+        if (picture){
+            form_data.append('picture',picture)
+        }
+        form_data.append("id", `${user.id}`);
+        form_data.append("title", title);
+        form_data.append("body", body);
 
         const response:Response = await fetch(`${url}/post`, {
             method : 'POST',
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body :JSON.stringify({
-                form_data :form_data,
-                id : user.id,
-                title,
-                body,
-            })
+            body :form_data
         })
         const response_json = await response.json()
         if (!response.ok){

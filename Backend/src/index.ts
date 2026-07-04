@@ -136,10 +136,9 @@ app.post("/post", upload.single("picture"), async (req, res) => {
         `post_${Date.now()}_${id}`
       );
     }
-
     await pool.query(
-      "INSERT INTO posts (user_id, title, body, picture) VALUES ($1, $2, $3, $4)",
-      [id, title, body, imageUrl]
+        "INSERT INTO posts (user_id, title, body, picture) VALUES ($1, $2, $3, $4)",
+        [id, title, body, `${imageUrl}`]
     );
 
     res.status(StatusCodes.OK).json({ message: 'Posted successfully', imageUrl });
@@ -154,9 +153,20 @@ app.get('/posts',async (req, res)=>{
         console.log('Retrieving the posts')
         const posts = await pool.query(
             `
-            SELECT p.*, u.picture, u.name, u.surname, u.middle_name FROM posts p JOIN users u ON p.user_id = u.id
+            SELECT
+                posts.*,
+                posts.picture,
+                users.name,
+                users.surname,
+                users.middle_name
+            FROM posts
+            JOIN users
+            ON posts.user_id = users.id
+            ORDER BY posts.created_at DESC
+            LIMIT 13;
             `
         )
+        console.log(posts)
         res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
         console.log('successful')
     }catch(error){
@@ -164,10 +174,6 @@ app.get('/posts',async (req, res)=>{
     }
 })
 
-if (process.env.PRODUCTION == 'FALSE'){
-    app.listen(PORT, () => {
-        console.log(`Server listening on on http://localhost:${PORT}`);
-    });
-}
-
-export default app
+app.listen(PORT, () => {
+    console.log(`Server listening on on http://localhost:${PORT}`);
+});

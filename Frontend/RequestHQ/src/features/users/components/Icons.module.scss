@@ -1,13 +1,68 @@
 @use '../../../GlobalVariables.scss' as *;
-
 #main_header_buttons{
-    width: 100%;;
-    display: flex;
-    justify-content: end;
+    flex: 1;
+    display:  flex;
+    justify-content: flex-end;
 }
 
-#main_header_buttons i{
-    font-size: 50px;
-    margin: 15px;
-    color: $color-background;
+.card_buttons {
+
+    display:flex;
+    justify-content:flex-end;
+
+    padding:1rem 1.25rem;
+
+    border-top:1px solid rgba(0,0,0,.05);
+
+    background:rgba(248,252,252,.6);
+}
+
+/* container for grouping icons */
+.actions {
+
+    display:flex;
+
+    gap:.75rem;
+
+    align-items:center;
+}
+
+/* base icon style */
+.icon {
+
+    font-size:22px;
+
+    padding:.55rem;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:$color-text-secondary;
+
+    background:transparent;
+
+    transition:
+        background-color .2s ease,
+        transform .2s ease,
+        color .2s ease,
+        box-shadow .2s ease;
+}
+
+/* hover state */
+.icon:hover {
+
+    background:rgba(0,207,200,.12);
+
+    color:$color-primary;
+
+    transform:translateY(-2px);
+
+    box-shadow:$shadow-soft;
+}
+
+/* optional “primary action” feel */
+.icon:first-child:hover {
+
+    color:$color-success;
 }
