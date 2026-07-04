@@ -27,8 +27,11 @@ const PORT = 3000;
 PORT; z;
 
 //Allowing cross origin server request and json
+const origin: string[] = ['https://request-hq.vercel.app'];
+if (process.env.NODE_DEV){origin.push('http://localhost:5173')}
+
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin,
 }))
 app.use(express.json())
 
