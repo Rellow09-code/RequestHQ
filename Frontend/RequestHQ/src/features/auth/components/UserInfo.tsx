@@ -2,8 +2,10 @@ import styles from './InfoQuery.module.scss'
 import type { setStateProp } from '../types/props'
 import { useState } from 'react'
 import type { UserInfoType } from '../types/specific_types'
+import { z } from "zod";
 
 export default function UserInfo({setPage}:setStateProp){
+    let move_on = false
     //Try to get the existing info before initializing a new object
     const [user_info, setUserInfo] = useState<UserInfoType>(()=>{
         const saved_info = localStorage.getItem('user_info')
@@ -20,14 +22,54 @@ export default function UserInfo({setPage}:setStateProp){
     const [shake, setShake] = useState<boolean>(false)
     const [feed_back, setFeedBack] = useState<string>('')
 
+    function checkUserInfo():string{
+        const name_z = z.string()
+            .min(2,{message: 'Expected the name to be atleast 2 characters'})
+            .max(30,{message: 'Expected the name to be less than 30 characters'})
+            .regex(/^[A-Za-z]+$/,{message: 'Expected name to start with uppercase, the preceed with lowercase letters'})
+        const surname_z = z.string()
+            .min(2,{message: 'Expected the surname to be atleast 2 characters'})
+            .max(30,{message: 'Expected the surname to be less than 30 characters'})
+            .regex(/^[A-Za-z]+$/,{message: 'Expected the name to be atleast 2 characters'})
+        const birth_date_z = z.iso.date({message: 'Expected the birth date to be an actual date'})
+
+        let name_results = name_z.safeParse(user_info.name)
+        let surname_results =surname_z.safeParse(user_info.surname)
+        let birth_date_results = birth_date_z.safeParse(user_info.birth_date)
+
+        if (!name_results.success){
+            const issue = name_results.error.issues[0].message
+            console.log(issue)
+            move_on = false
+            return issue;
+        }
+        if (!surname_results.success){
+            const issue = surname_results.error.issues[0].message
+            move_on = false
+            return issue;
+        }
+        if (!birth_date_results.success){
+            const issue = birth_date_results.error.issues[0].message
+            move_on = false
+            return issue;
+        }
+        move_on = true
+        return 'Good'
+    }
+
     function updateUserInfo(key:string, value:any){
         setUserInfo((old_obj:UserInfoType)=>{
             return {...old_obj, [key]:value}
         })
+        setFeedBack(checkUserInfo())
     }
 
     //Go to the next page if all necessary info is provided
     function next_page(){
+        setFeedBack(checkUserInfo())
+        if (!move_on){
+            return
+        }
         for (let [key,value] of Object.entries(user_info)){
             if (['middle_name'].includes(key)){
                 continue
@@ -45,7 +87,6 @@ export default function UserInfo({setPage}:setStateProp){
                 return
             }
         }
-        setFeedBack(``)
         localStorage.setItem('user_info',JSON.stringify(user_info))
         setPage(1)
         

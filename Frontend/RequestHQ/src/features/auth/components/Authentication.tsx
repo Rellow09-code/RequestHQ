@@ -7,6 +7,7 @@ import type { PasswordStrengthType } from '../types/specific_types'
 import type { apiResponseType } from '../../../shared/types/apiTypes'
 import signInUser from '../services/signUser'
 import Loading from '../../../shared/components/Loading'
+import {z} from 'zod'
 
 export default function Authentication(props:setStateProp){
     const [password, setPassword] = useState<string>('')
@@ -16,10 +17,29 @@ export default function Authentication(props:setStateProp){
     const [server_response, setServerResponse] = useState<string>('')
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+    let move_on = false
 
     useEffect(()=>setPasswordStats(gaugePasswordStrength(password)), [password])
 
+    function checkAuth(){
+        const password_z = z.string()
+            .min(8, {message: 'Your password must be atleast 8 characters'})
+            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/, {message: 'Your password is missing a key ingredient in it'});
+
+        let password_test = password_z.safeParse(password)
+        if (!password_test.success){
+            console.log(password_test.error.issues[0].message)
+            move_on = false
+            return setServerResponse(password_test.error.issues[0].message)
+        }
+        move_on = true
+    }
+
     function submit(){
+        checkAuth()
+        if (!move_on){
+            return
+        }
         //check for weak passwords
         if (password_stats.score < 5){
             //shake the feedback
@@ -89,12 +109,12 @@ export default function Authentication(props:setStateProp){
                         3. Passwords must contain atleast on uppercase alphabet<br />
                         4. Passwords must also contain a small letter<br />
                     </h1>
-                    <h1 id={styles.feedback2} className={`${styles.feedback} ${shake?styles.shake:''}`} style={{
+                    <h1 id={styles.feedback} className={`${styles.feedback} ${shake?styles.shake:''}`} style={{
                         ['--color-score']: `${password_stats.score/5}`
                     } as React.CSSProperties}>
                         {password === confirm_password ? `Your password is ${password_stats.label}`:'The passwords do not match'}
                     </h1>
-                    <h1 id={styles.feedback2} className={`${styles.feedback} ${shake?styles.shake:''}`}>{server_response}</h1>
+                    <h1 id={styles.feedback2} className={`${styles.feedback2} ${shake?styles.shake:''}`}>{server_response}</h1>
                 </section>
             </section>
         </section>

@@ -2,8 +2,10 @@ import styles from './InfoQuery.module.scss'
 import type { setStateProp } from '../types/props'
 import type { ContactType } from '../types/specific_types'
 import { useState } from 'react'
+import { z } from "zod";
 
 export default function ContactDetails({setPage}:setStateProp){
+    let move_on = false
     //Try to get the existing info before initializing a new object
     const [contact_info, setContactInfo] = useState<ContactType>(()=>{
         const saved_info = localStorage.getItem('contact_info')
@@ -18,6 +20,66 @@ export default function ContactDetails({setPage}:setStateProp){
         }
     })
 
+    function checkContact(): string {
+        const email_z = z.string().email({
+            message: "Expected a valid email address"
+        });
+        console.log(email_z.safeParse("businessnelthighs"));
+        const phone_z = z.e164({
+            message: "Expected a valid phone number in +XX XXX XXX XXXX +- format, with less than 16 numbers"
+        });
+
+        const street_z = z.string()
+            .min(2, { message: "Expected the street to be at least 2 characters" })
+            .max(60, { message: "Expected the street to be less than 60 characters" });
+
+        const city_z = z.string()
+            .min(2, { message: "Expected the city to be at least 2 characters" })
+            .max(60, { message: "Expected the city to be less than 60 characters" });
+
+        const province_z = z.string()
+            .min(2, { message: "Expected the province to be at least 2 characters" })
+            .max(60, { message: "Expected the province to be less than 60 characters" });
+
+        const country_z = z.string()
+            .min(2, { message: "Expected the country to be at least 2 characters" })
+            .max(60, { message: "Expected the country to be less than 60 characters" });
+
+        const email_results = email_z.safeParse(contact_info.email);
+        const phone_results = phone_z.safeParse(contact_info.phone);
+        const street_results = street_z.safeParse(contact_info.street);
+        const city_results = city_z.safeParse(contact_info.city);
+        const province_results = province_z.safeParse(contact_info.province);
+        const country_results = country_z.safeParse(contact_info.country);
+
+        if (!email_results.success) {
+            move_on = false
+            return email_results.error.issues[0].message;
+        }
+        if (!phone_results.success) {
+            move_on = false
+            return phone_results.error.issues[0].message;
+        }
+        if (!street_results.success) {
+            move_on = false
+            return street_results.error.issues[0].message;
+        }
+        if (!city_results.success) {
+            move_on = false
+            return city_results.error.issues[0].message;
+        }
+        if (!province_results.success) {
+            move_on = false
+            return province_results.error.issues[0].message;
+        }
+        if (!country_results.success) {
+            move_on = false
+            return country_results.error.issues[0].message;
+        }
+        move_on = true;
+        return "Good";
+}
+
     const [shake, setShake] = useState<boolean>(false)
     const [feed_back, setFeedBack] = useState<string>('')
 
@@ -29,6 +91,10 @@ export default function ContactDetails({setPage}:setStateProp){
 
     //Go to the next page if all necessary info is provided
     function go_to_page(page_no:number){
+        setFeedBack(checkContact())
+        if (!move_on){
+            return
+        }
         for (let [key,value] of Object.entries(contact_info)){
             //Check if the input is valid
             if (! value){
@@ -43,7 +109,6 @@ export default function ContactDetails({setPage}:setStateProp){
                 return
             }
         }
-        setFeedBack(``)
         localStorage.setItem('contact_info',JSON.stringify(contact_info))
         setPage(page_no)
         
