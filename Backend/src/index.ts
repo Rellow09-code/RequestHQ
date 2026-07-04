@@ -63,7 +63,7 @@ app.post("/signIn",async (req,res)=>{
             [email]
         )
         if (user_exist.rows.length > 0){
-            return res.status(StatusCodes.CONFLICT).json({'message':'bad input', 'error': 'User already exists, please log in instead'})
+            return res.status(StatusCodes.CONFLICT).json({'message':'bad input', 'error': 'User already signed up, please log in instead'})
         }
 
         //Hash the users password
