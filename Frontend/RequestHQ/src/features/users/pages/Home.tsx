@@ -7,9 +7,14 @@ import { useMoveInvalidAuth } from "../../../shared/hooks/moveInvalidAuth"
 import getPosts from "../services/getPosts"
 import type { postsResponse } from "../types/commonTypes"
 import Card from "../components/Card"
+import type { userType } from "../../../shared/types/apiTypes"
 
 export default function Home(){    
     useMoveInvalidAuth()
+    const user_str = localStorage.getItem("user");
+    if (!user_str){return}
+    const user: userType = JSON.parse(user_str);
+
     let [page, setPage] = useState(0)
     const [posts, setPosts] = useState<postsResponse[]>([]);
     useEffect(() => {
@@ -26,7 +31,7 @@ export default function Home(){
     return(
         <>
             <header id={styles.main_header}>
-                <ProfileUI/>
+                <ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/>
                 <Icons setPage={setPage}/>
             </header>
             

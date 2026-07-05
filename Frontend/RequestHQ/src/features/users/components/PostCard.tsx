@@ -1,4 +1,3 @@
-import ProfileUI from "./ProfileUI"
 import styles from'./Card.module.scss'
 import { useState } from "react"
 import type { postCardType } from "../types/commonTypes"
@@ -30,7 +29,6 @@ export default function PostCard(){
     return (
         <div className={styles.card}>
             <section className={styles.card_header}>
-                <ProfileUI/>
                 <h3><input value={post_card.title} onChange={(e)=>updatePostCard('title',e.target.value)} id={styles.post_title} type="text" placeholder="Title"/></h3>
             </section>
             <section className={styles.card_body}>

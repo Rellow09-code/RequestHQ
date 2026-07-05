@@ -69,7 +69,7 @@ export default function LogInAuthentication(){
 
                             <section className={styles.wrapper}>
                                 <label>Password</label>
-                                <input value={password} id={styles.password} type="text" onChange={(e)=>setPassword(e.target.value)}/>
+                                <input value={password} id={styles.password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
                             </section>
 
                         </section>

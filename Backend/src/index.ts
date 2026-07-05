@@ -82,7 +82,7 @@ app.post("/signIn",async (req,res)=>{
         )
         //Send respond back to the user
         console.log('completed signing in the user')
-        return res.status(StatusCodes.OK).json({ message: "Profile created successfully" })
+        return res.status(StatusCodes.OK).json({ message: "Profile created successfully", user_info:query_results })
     }
     catch(error){
         console.log(`Failed to sign in user because ${error}`)
@@ -165,7 +165,7 @@ app.get('/posts',async (req, res)=>{
             `
             SELECT
                 posts.*,
-                posts.post_picture,
+                users.picture,
                 users.name,
                 users.surname,
                 users.middle_name
