@@ -24,7 +24,7 @@ export default function Authentication(props:setStateProp){
     function checkAuth(){
         const password_z = z.string()
             .min(8, {message: 'Your password must be atleast 8 characters'})
-            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/, {message: 'Your password is missing a key ingredient in it'});
+            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/, {message: 'Your password is missing special character (@$!%*?&)'});
 
         let password_test = password_z.safeParse(password)
         if (!password_test.success){
@@ -105,7 +105,7 @@ export default function Authentication(props:setStateProp){
                     <h1 className={styles.feedback}>
                         password rules: <br />
                         1. Minimum password characters is 8<br />
-                        2. Passwords must contain special characters<br />
+                        2. Passwords must contain atleast one special character: @$!%*?&<br />
                         3. Passwords must contain atleast on uppercase alphabet<br />
                         4. Passwords must also contain a small letter<br />
                     </h1>

@@ -304,14 +304,8 @@
 #feedback2{
 
     background:rgba(34,197,94,.08);
-
-    color:color-mix(
-        in srgb,
-        $color-danger calc(100% * (1 - var(--color-score))),
-        $color-success calc(100% * var(--color-score))
-    );
-
-    font-weight:600;
+    color: red;
+    font-size: large;
 }
 
 /* ==========================
