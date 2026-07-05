@@ -146,7 +146,7 @@ app.post("/post", upload.single("picture"), async (req, res) => {
       );
     }
     await pool.query(
-        "INSERT INTO posts (user_id, title, body, picture) VALUES ($1, $2, $3, $4)",
+        "INSERT INTO posts (user_id, title, body, post_picture) VALUES ($1, $2, $3, $4)",
         [id, title, body, `${imageUrl}`]
     );
 

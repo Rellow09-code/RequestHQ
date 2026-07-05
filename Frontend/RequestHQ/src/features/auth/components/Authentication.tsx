@@ -56,7 +56,8 @@ export default function Authentication(props:setStateProp){
         try{
             signInUser().then((results:apiResponseType)=>{
                 if (results.ok){
-                    if (!results.response?.user_info){
+                    if (results.response?.user_info == null){
+                        console.log(results.response?.user_info)
                         setServerResponse(`An unknown error occured`)
                         return
                     }
