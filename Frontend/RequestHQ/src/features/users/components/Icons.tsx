@@ -9,7 +9,7 @@ export default function Icons({setPage}:setStateProp){
                 <div className={styles.actions}>
                     <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(0)}>home</i>
                     {block && <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(1)}>notifications</i>}
-                    {block && <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(2)}>message</i>}
+                    <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(2)}>message</i>
                     <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(3)}>post_add</i>
                     {block && <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(4)}>density_medium</i>}
                     <i className={`material-icons ${styles.icon}`} onClick={()=>window.location.reload()}>refresh</i>

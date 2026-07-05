@@ -41,3 +41,22 @@ $gradient-soft: linear-gradient(135deg, $color-accent, $color-primary);
 $font-size-base: 18px;
 $input-bg: #1ad4b2;
 //======================================================================================================================================================
+
+//Screen sizes
+// Extra small devices (phones)
+$screen-xs: 480px;
+
+// Small devices (large phones)
+$screen-sm: 576px;
+
+// Medium devices (tablets)
+$screen-md: 768px;
+
+// Large devices (small laptops)
+$screen-lg: 992px;
+
+// Extra large devices (desktops)
+$screen-xl: 1200px;
+
+// Extra extra large devices (large monitors)
+$screen-xxl: 1400px;

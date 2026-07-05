@@ -24,7 +24,6 @@ export default function ContactDetails({setPage}:setStateProp){
         const email_z = z.string().email({
             message: "Expected a valid email address"
         });
-        console.log(email_z.safeParse("businessnelthighs"));
         const phone_z = z.e164({
             message: "Expected a valid phone number in +XX XXX XXX XXXX +- format, with less than 16 numbers"
         });

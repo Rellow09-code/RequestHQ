@@ -13,14 +13,14 @@ interface postCardProfileType extends postCardType{
 interface postsResponse{
     body: string,
     created_at: string,
-    id: number,
+    id: string,
     middle_name: string|null,
     name: string,
     post_picture: null|string,
     picture: null|string,
     surname: string,
     title: string,
-    user_id: number,
+    user_id: string,
 }
 
 interface postResponseProp{

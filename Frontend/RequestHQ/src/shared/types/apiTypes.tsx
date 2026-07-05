@@ -1,9 +1,8 @@
-
 interface userType{
     birth_date: string,
     created_at: string,
     email: string,
-    id: number,
+    id: string,
     location: string,
     middle_name: string|null,
     name: string,

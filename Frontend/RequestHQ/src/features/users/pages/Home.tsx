@@ -8,6 +8,7 @@ import getPosts from "../services/getPosts"
 import type { postsResponse } from "../types/commonTypes"
 import Card from "../components/Card"
 import type { userType } from "../../../shared/types/apiTypes"
+import Messages from "../components/Messages"
 
 export default function Home(){    
     useMoveInvalidAuth()
@@ -44,7 +45,7 @@ export default function Home(){
                     />
                 ))}
             </main>}
-
+            {page==2 && <main id={styles.message_main}><Messages/></main>}
             {page==3 && <main id={styles.posting_main}><PostCard/></main>}
         </>
     )

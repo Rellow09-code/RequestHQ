@@ -1,5 +1,5 @@
 interface miniUserType {
-    id: number,
+    id: string,
     picture: null|string,
     name: string,
     surname: string,

@@ -45,16 +45,16 @@
 
 .main_component{
 
-    min-height:100vh;
+    min-height:100%;
+    min-width: 100%;
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content: center;
 
     gap:5rem;
 
     padding:3rem 7%;
-
     background:
         radial-gradient(circle at top left,
         rgba(0,207,200,.08),
@@ -78,6 +78,7 @@
     line-height:1.1;
 
     max-width:450px;
+    margin-right: 4rem;
 }
 
 /* ==========================
@@ -114,6 +115,7 @@
     padding:2rem;
 
     animation:fadeUp .45s ease;
+    margin-right: 4rem;
 }
 
 .card_header{

@@ -15,12 +15,11 @@ body{
 
 .main_header{
     min-height:100vh;
-
+    min-width: 100%;
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:4rem 8%;
     gap:4rem;
 
     background:$gradient-primary;
@@ -28,8 +27,20 @@ body{
     color:$color-surface;
 
     overflow:hidden;
+    position: fixed;
+
+    *{
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
 }
 
+@media (max-width: $screen-lg) {
+    .main_header {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
 .main_header h1{
     font-size:clamp(3rem,5vw,5rem);
     line-height:1.1;
