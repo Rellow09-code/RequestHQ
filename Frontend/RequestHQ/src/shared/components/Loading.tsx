@@ -1,9 +1,6 @@
+import type { LoadingProps } from '../types/commonTypes';
 import styles from './Loading.module.scss';
 
-type LoadingProps = {
-    show: boolean;
-    message?: string;
-};
 
 export default function Loading({ show, message = "Loading..." }: LoadingProps) {
     if (!show) return null;

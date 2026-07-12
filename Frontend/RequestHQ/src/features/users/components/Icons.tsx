@@ -12,6 +12,7 @@ export default function Icons({setPage}:SetStateProp){
                     <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(2)}>message</i>
                     <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(3)}>post_add</i>
                     {block && <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(4)}>density_medium</i>}
+                    <i className={`material-icons ${styles.icon}`} onClick={()=>setPage(5)}>search</i>
                     <i className={`material-icons ${styles.icon}`} onClick={()=>window.location.reload()}>refresh</i>
                 </div>
             </section>

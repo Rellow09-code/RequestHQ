@@ -1,22 +1,22 @@
 import styles from './InfoQuery.module.scss'
-import type { setStateProp } from '../types/props'
+import type { SetStateProp } from '../types/props'
 import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { gaugePasswordStrength } from '../services/passwordStrength'
-import type { PasswordStrengthType } from '../types/specific_types'
-import type { apiResponseType } from '../../../shared/types/apiTypes'
+import type { PasswordStrength } from '../types/specific_types'
+import type { ApiResponse } from '../../../shared/types/apiTypes'
 import signInUser from '../services/signUser'
 import Loading from '../../../shared/components/Loading'
 import {z} from 'zod'
 
-export default function Authentication(props:setStateProp){
+export default function Authentication(props:SetStateProp){
     const [password, setPassword] = useState<string>('')
     const [confirm_password, setConfirmPassword] = useState<string>('')
-    const [password_stats, setPasswordStats] = useState<PasswordStrengthType>(gaugePasswordStrength(password))
+    const [password_stats, setPasswordStats] = useState<PasswordStrength>(gaugePasswordStrength(password))
     const [shake, setShake] = useState<boolean>(false)
     const [server_response, setServerResponse] = useState<string>('')
     const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
+    const [load,setLoad] = useState<boolean>(false)
     let move_on = false
 
     useEffect(()=>setPasswordStats(gaugePasswordStrength(password)), [password])
@@ -35,7 +35,13 @@ export default function Authentication(props:setStateProp){
         move_on = true
     }
 
-    function submit(){
+    async function submit(){
+        setLoad(true)
+        await doSubmit()
+        setLoad(false)
+    }
+
+    async function doSubmit(){
         checkAuth()
         if (!move_on){
             return
@@ -52,32 +58,29 @@ export default function Authentication(props:setStateProp){
         localStorage.setItem('password',password)
         setServerResponse('')
     
-        setLoading(true)
         try{
-            signInUser().then((results:apiResponseType)=>{
-                if (results.ok){
-                    if (!results.response?.user_info){
-                        console.log(results)
-                        setServerResponse(`An unknown error occured`)
-                        return
-                    }
-                    const user_info_str : string = JSON.stringify(results.response.user_info)
-                    localStorage.setItem('user',user_info_str)
-                    navigate('/Home')
+            const results:ApiResponse = await signInUser()
+            if (results.ok){
+                if (!results.response?.user_info){
+                    console.log(results)
+                    setServerResponse(`An unknown error occured`)
                     return
                 }
-                setServerResponse(`${results.error}`)
-            })
+                const user_info_str : string = JSON.stringify(results.response.user_info)
+                localStorage.setItem('user',user_info_str)
+                navigate('/Home')
+                return
+            }
+            setServerResponse(`${results.error}`)
         }
         finally{
-            setLoading(false)
         }
     }
 
     const setPage = props.setPage
     return (
         <section className={styles.main_component}>
-            <Loading show={loading} message='Signing in...'/>
+            <Loading show={load} />
             <h1>Keep your account safe</h1>
             <section id={styles.userInfo} className={styles.userInfo}>
                 <section className={styles.card}>

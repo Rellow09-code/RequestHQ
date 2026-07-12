@@ -9,6 +9,86 @@ import { StatusCodes } from "http-status-codes";
  *      Message: UUID
  * }
  */
+async function getRecentMessages(req:Request,res:Response){
+    console.log('checking req query parameters')
+    const chat_id:string = `${req.query.chat_id}`
+    const from_at:string = `${req.query.from_at}`
+    if (!chat_id || !from_at){
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request query parameters not sent'})
+    }
+
+    try{
+        console.log(`sending the message`)
+        const results = await pool.query(
+            `
+            SELECT
+                m.id,
+                m.chat_id,
+                m.user_id,
+                m.body,
+                m.created_at,
+                m.updated_at,
+                u.name,
+                u.surname,
+                u.middle_name,
+                u.picture
+            FROM messages m
+            JOIN users u
+                ON u.id = m.user_id
+            WHERE m.chat_id = $1
+            AND m.created_at > $2
+            ORDER BY m.created_at ASC;
+            `,
+            [chat_id, from_at]
+        );
+        console.log(`Success`)
+        return res.status(StatusCodes.OK).json({ message: 'Sucess', messages:results.rows });
+    }
+    catch(error){
+        console.log(`failed:${error}`)
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Couldn't get messages because: ${error}` });
+    }
+}
+
+async function getAllMessages(req:Request,res:Response){
+    console.log('checking req query parameters')
+    const chat_id:string = `${req.query.chat_id}`
+    if (!chat_id){
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request query parameters not sent'})
+    }
+
+    try{
+        console.log(`sending the message`)
+        const results = await pool.query(
+            `
+            SELECT
+                m.id,
+                m.chat_id,
+                m.user_id,
+                m.body,
+                m.created_at,
+                m.updated_at,
+                u.name,
+                u.surname,
+                u.middle_name,
+                u.picture
+            FROM messages m
+            JOIN users u
+                ON m.user_id = u.id
+            WHERE m.chat_id = $1
+            ORDER BY m.created_at ASC;
+            `,
+            [chat_id]
+        );
+        console.log(`Success`)
+        return res.status(StatusCodes.OK).json({ message: 'Sucess', messages:results.rows });
+    }
+    catch(error){
+        console.log(`failed:${error}`)
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Couldn't get messages because: ${error}` });
+    }
+}
+
 async function getPrivateChats(req:Request,res:Response){
     console.log('checking req query parameters')
     const id:string = `${req.query.id}`
@@ -51,12 +131,17 @@ async function getPrivateChats(req:Request,res:Response){
 }
 async function sendMessage(req:Request,res:Response){
     console.log('checking req body for sending messages')
-    if (!req.body){return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request body not sent'})}
+    if (!req.body){
+        console.log('Request body not sent')
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request body not sent'})
+    }
     const {id, receiver_id, message} = req.body
     if (!id || !receiver_id){
+        console.log('Unknown user')
         return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Unknown user'})
     }
     if (!message){
+        console.log('Can not send an empty message')
         return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Can not send an empty message'})
     }
 
@@ -116,4 +201,4 @@ async function sendMessage(req:Request,res:Response){
 }
 
 
-export {sendMessage, getPrivateChats}
+export {sendMessage, getPrivateChats, getAllMessages, getRecentMessages}

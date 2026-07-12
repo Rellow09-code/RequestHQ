@@ -8,7 +8,9 @@ import multer from "multer"
 import signIn from "./auth/signIn.ts";
 import logIn from "./auth/logIn.ts";
 import { getPosts, post } from "./features/posts.ts";
-import { getPrivateChats, sendMessage } from "./features/messages.ts";
+import { getAllMessages, getPrivateChats, getRecentMessages, sendMessage } from "./features/messages.ts";
+import { searchName } from "./features/users.ts";
+
 
 //setup multer for file uploads
 const upload = multer({dest:'uploads/'})
@@ -22,7 +24,7 @@ PORT; z;
 
 //Allowing cross origin server request and json
 const origin: string[] = ['https://request-hq.vercel.app'];
-if (process.env.NODE_DEV){origin.push('http://localhost:5173')}
+if (process.env.NODE_DEV){origin.push('http://localhost:5174')}
 
 app.use(cors({
     origin,
@@ -46,6 +48,11 @@ app.get('/posts',getPosts)
 //Messaging functionality
 app.post("/sendMessage",sendMessage)
 app.get("/getPrivateChats", getPrivateChats)
+app.get("/getAllMessages", getAllMessages)
+app.get("/getRecentMessages", getRecentMessages)
+
+//Users
+app.get("/searchName",searchName)
 
 if (process.env.Listen == 'TRUE'){
     app.listen(PORT, () => {

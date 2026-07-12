@@ -29,15 +29,42 @@ interface PostResponseProp{
 
 interface Chat{
     id : string,
-    name: string|null,
+    name: string,
+    middle_name: string|null,
+    surname: string|null
     picture: string|null,
     is_group: boolean,
     created_at: Date,
-    updated_at: Date
+    updated_at: Date,
+    user_id:string
 }
 
 interface ChatProp{
-    chat: Chat
+    chat: Chat|null,
+    chat_message_map:ChatMessageMap
 }
 
-export type {PostCard, PostCardProfile, PostsResponse, PostResponseProp, Chat, ChatProp}
+interface MessageProps {
+    body: string;
+    time: string;
+    mine: boolean;
+}
+
+interface Message{
+    id:string,
+    chat_id:string,
+    user_id:string,
+    body:string,
+    created_at:string,
+    name:string,
+    surname:string,
+    middle_name:string,
+    updated_at:string,
+    picture:string
+}
+type ChatMessageMap = Record<string,Message[]>
+
+export type {
+    PostCard, PostCardProfile, PostsResponse, PostResponseProp,
+    Chat, ChatProp, MessageProps, Message, ChatMessageMap
+}

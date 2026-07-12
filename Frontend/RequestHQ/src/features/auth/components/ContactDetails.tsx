@@ -131,7 +131,7 @@ export default function ContactDetails({setPage}:SetStateProp){
 
                                 <section className={styles.wrapper}>
                                     <label>Phone number</label>
-                                    <input value={contact_info.phone} id={styles.phone} type="tel" placeholder="+27 00 000 000" onChange={e=>updateContactInfo('phone',e.target.value)}/>
+                                    <input value={contact_info.phone} id={styles.phone} type="tel" placeholder="+27 00 000 000" onChange={e=>updateContactInfo('phone',e.target.value.replace(' ','').trim())}/>
                                 </section>
 
                                 <section className={styles.wrapper}>

@@ -12,9 +12,15 @@ export default function LogInAuthentication(){
     const [shake, setShake] = useState<boolean>(false)
     const [feedback, setFeedback] = useState<string>('')
     const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
+    const [load,setLoad] = useState<boolean>(false)
 
-    function submit(){
+    async function submit(){
+        setLoad(true)
+        await doSubmit()
+        setLoad(false)
+    }
+
+    async function doSubmit(){
         //check for valid input
         const emailValid = emailSchema.safeParse(email)
         const passwordValid = passwordSchema.safeParse(password)
@@ -30,30 +36,29 @@ export default function LogInAuthentication(){
         }
         setFeedback('')
 
-        setLoading(true)
         try{
-            logUser({email,password}).then((results:ApiResponse)=>{
-                if (results.ok){
-                    if (!results.response?.user_info){
-                        setFeedback(`An unknown error occured`)
-                        return
-                    }
-                    const user_info_str : string = JSON.stringify(results.response.user_info)
-                    localStorage.setItem('user',user_info_str)
-                    navigate('/Home')
+            const results:ApiResponse = await logUser({email,password})
+            if (results.ok){
+                if (!results.response?.user_info){
+                    setFeedback(`An unknown error occured`)
                     return
                 }
-                setFeedback(`${results.error}`)
-            })
-        }finally{
-            setLoading(false)
+                const user_info_str : string = JSON.stringify(results.response.user_info)
+                localStorage.setItem('user',user_info_str)
+                navigate('/Home')
+                return
+            }
+            setFeedback(`${results.error}`)
+        
+        }catch (e){
+            setFeedback(`${e}`)
         }
     }
 
     return (
         <section className={styles.main_component}>
             <h1>Welcome back</h1>
-            <Loading show={loading} message='Logging in...'/>
+            <Loading show={load} />
             <section id={styles.userInfo} className={styles.userInfo}>
                 <section className={styles.card}>
                     <section className={styles.card_header}>

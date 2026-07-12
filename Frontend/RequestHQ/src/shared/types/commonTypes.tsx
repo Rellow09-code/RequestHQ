@@ -5,5 +5,9 @@ interface MiniUser {
     surname: string,
     middle_name: null|string
 }
+type LoadingProps = {
+    show: boolean;
+    message?: string;
+};
 
-export type {MiniUser}
+export type {MiniUser,LoadingProps}
