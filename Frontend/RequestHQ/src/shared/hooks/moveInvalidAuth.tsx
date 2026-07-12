@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import type { userType } from "../types/apiTypes";
+import type { User } from "../types/apiTypes";
 
 export function useMoveInvalidAuth() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export function useMoveInvalidAuth() {
     }
 
     try {
-      const user: userType = JSON.parse(user_str);
+      const user: User = JSON.parse(user_str);
       user
     } catch {
       navigate("/");

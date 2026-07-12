@@ -1,8 +1,8 @@
 import ProfileUI from "./ProfileUI"
 import styles from './Card.module.scss'
-import type { postResponseProp } from "../types/commonTypes"
+import type { PostResponseProp } from "../types/commonTypes"
 
-export default function Card({post}: postResponseProp){
+export default function Card({post}: PostResponseProp){
     if (!post){
         return <></>
     }

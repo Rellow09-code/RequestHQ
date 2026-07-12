@@ -1,7 +1,7 @@
 import styles from './InfoQuery.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import type { apiResponseType } from '../../../shared/types/apiTypes'
+import type { ApiResponse } from '../../../shared/types/apiTypes'
 import logUser from '../services/logUser'
 import { emailSchema, passwordSchema } from '../types/zod'
 import Loading from '../../../shared/components/Loading'
@@ -32,7 +32,7 @@ export default function LogInAuthentication(){
 
         setLoading(true)
         try{
-            logUser({email,password}).then((results:apiResponseType)=>{
+            logUser({email,password}).then((results:ApiResponse)=>{
                 if (results.ok){
                     if (!results.response?.user_info){
                         setFeedback(`An unknown error occured`)

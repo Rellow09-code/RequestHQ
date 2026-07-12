@@ -1,7 +1,7 @@
-import type { miniUserType } from '../../../shared/types/commonTypes'
+import type { MiniUser } from '../../../shared/types/commonTypes'
 import styles from './ProfileUI.module.scss'
 
-export default function ProfileUI(user:miniUserType){
+export default function ProfileUI(user:MiniUser){
     return(
         <>
             <div className={styles.profile_UI}>

@@ -1,6 +1,6 @@
-import type { PasswordStrengthType } from "../types/specific_types";
+import type { PasswordStrength } from "../types/specific_types";
 
-export function gaugePasswordStrength(password: string): PasswordStrengthType {
+export function gaugePasswordStrength(password: string): PasswordStrength {
   let score = 0;
 
   if (!password) {
@@ -24,7 +24,7 @@ export function gaugePasswordStrength(password: string): PasswordStrengthType {
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
   // Convert score → label
-  let label: PasswordStrengthType["label"];
+  let label: PasswordStrength["label"];
 
   if (score <= 1) label = "Very Weak";
   else if (score === 2) label = "Weak";

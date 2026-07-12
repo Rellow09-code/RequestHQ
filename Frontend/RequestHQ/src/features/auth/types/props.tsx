@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react"
 
-interface setStateProp{
+interface SetStateProp{
     setPage: Dispatch<SetStateAction<number>>
 }
 
-export type {setStateProp}
+export type {SetStateProp}

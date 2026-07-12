@@ -1,11 +1,11 @@
-interface UserInfoType{
+interface UserInfo{
     name: string;
     middle_name: string;
     surname: string;
     birth_date: string;
 }
 
-interface ContactType{
+interface Contact{
     email:string,
     phone:string,
     street:string,
@@ -14,21 +14,21 @@ interface ContactType{
     country:string
 }
 
-type PasswordStrengthType = {
+type PasswordStrength = {
   score: number;
   label: "Very Weak" | "Weak" | "Medium" | "Strong" | "Very Strong";
 };
 
 
-interface SignRequestType{
+interface SignRequest{
     user_info : string,
     contact_info : string,
     password : string
 }
 
-interface LogRequestType{
+interface LogRequest{
     email:string,
     password:string
 }
 
-export type {UserInfoType, ContactType, PasswordStrengthType, SignRequestType, LogRequestType}
+export type {UserInfo, Contact, PasswordStrength, SignRequest, LogRequest}

@@ -1,4 +1,4 @@
-interface userType{
+interface User{
     birth_date: string,
     created_at: string,
     email: string,
@@ -12,10 +12,10 @@ interface userType{
     surname: string,
 }
 
-interface apiResponseType{
+interface ApiResponse{
     ok:boolean,
-    response: null|{message:string, user_info:userType},
+    response: null|{message:string, user_info:User},
     error:null|string
 }
 
-export type {userType, apiResponseType}
+export type {User, ApiResponse}

@@ -1,13 +1,13 @@
 import styles from './InfoQuery.module.scss'
-import type { setStateProp } from '../types/props'
+import type { SetStateProp } from '../types/props'
 import { useState } from 'react'
-import type { UserInfoType } from '../types/specific_types'
+import type { UserInfo } from '../types/specific_types'
 import { z } from "zod";
 
-export default function UserInfo({setPage}:setStateProp){
+export default function UserInfo({setPage}:SetStateProp){
     let move_on = false
     //Try to get the existing info before initializing a new object
-    const [user_info, setUserInfo] = useState<UserInfoType>(()=>{
+    const [user_info, setUserInfo] = useState<UserInfo>(()=>{
         const saved_info = localStorage.getItem('user_info')
         return saved_info ?JSON.parse(saved_info)
         :{
@@ -58,7 +58,7 @@ export default function UserInfo({setPage}:setStateProp){
     }
 
     function updateUserInfo(key:string, value:any){
-        setUserInfo((old_obj:UserInfoType)=>{
+        setUserInfo((old_obj:UserInfo)=>{
             return {...old_obj, [key]:value}
         })
         setFeedBack(checkUserInfo())

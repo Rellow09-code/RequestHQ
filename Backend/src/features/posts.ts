@@ -8,16 +8,19 @@ import { uploadToCloud } from "../tools/fileUpload.ts";
 async function post(req:Request,res:Response){
   try {
     const {id, title, body } = req.body;
+    if (!id) {return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'unknown user' })}
+    
     let imageUrl: string | null = null;
-
     if (req.file) {
       imageUrl = await uploadToCloud(
         req.file.path,
         `post_${Date.now()}_${id}`
       );
     }
+    if (!body && !imageUrl) {return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Cannot post empty content' })}
+    
     await pool.query(
-        "INSERT INTO posts (user_id, title, body, post_picture) VALUES ($1, $2, $3, $4)",
+        "INSERT INTO posts (user_id, title, body, picture) VALUES ($1, $2, $3, $4)",
         [id, title, body, `${imageUrl}`]
     );
 
@@ -36,6 +39,7 @@ async function getPosts(req:Request,res:Response){
             `
             SELECT
                 posts.*,
+                posts.picture as post_picture,
                 users.picture,
                 users.name,
                 users.surname,

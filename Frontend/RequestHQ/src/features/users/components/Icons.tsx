@@ -1,7 +1,7 @@
 import styles from './Icons.module.scss'
-import type { setStateProp } from '../../auth/types/props'
+import type { SetStateProp } from '../../auth/types/props'
 
-export default function Icons({setPage}:setStateProp){
+export default function Icons({setPage}:SetStateProp){
     const block = null
     return(
         <section id={styles.main_header_buttons}>

@@ -1,7 +1,7 @@
-import type { LogRequestType } from "../types/specific_types"
-import type { apiResponseType } from "../../../shared/types/apiTypes"
+import type { LogRequest } from "../types/specific_types"
+import type { ApiResponse } from "../../../shared/types/apiTypes"
 
-export default async function logUser(props:LogRequestType):Promise<apiResponseType>{
+export default async function logUser(props:LogRequest):Promise<ApiResponse>{
     const {email, password} = props
     const base_url = import.meta.env.VITE_BACKEND_URL
 
@@ -11,7 +11,7 @@ export default async function logUser(props:LogRequestType):Promise<apiResponseT
 
     try {
         console.log('sending request')
-        const req_body:LogRequestType = {
+        const req_body:LogRequest = {
             'email' : email,
             'password' : password
         }
@@ -24,15 +24,15 @@ export default async function logUser(props:LogRequestType):Promise<apiResponseT
         })
         const response_json = await server_response.json()
         if (!server_response.ok){
-            const results:apiResponseType = {ok: false, response: response_json, error:`${server_response.statusText}: ${response_json.error}`}
+            const results:ApiResponse = {ok: false, response: response_json, error:`${server_response.statusText}: ${response_json.error}`}
             return results
         }
-        const results:apiResponseType = {ok: true, response: response_json, error:null}
+        const results:ApiResponse = {ok: true, response: response_json, error:null}
         return results
     }
     catch (error){
         console.log(`${error}`)
-        const results:apiResponseType = {ok :false, response: null, error: `${error}`}
+        const results:ApiResponse = {ok :false, response: null, error: `${error}`}
         return results
     }
 }

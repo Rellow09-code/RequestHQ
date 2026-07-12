@@ -1,62 +1,119 @@
 import pool from "../database/database.ts";
 import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+/**
+ * Sends a message to a user from a user
+ * expected request body : {
+ *      id: UUID,
+ *      receiver_id: UUID,
+ *      Message: UUID
+ * }
+ */
+async function getPrivateChats(req:Request,res:Response){
+    console.log('checking req query parameters')
+    const id:string = `${req.query.id}`
+    if (!id){
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request query parameters not sent'})
+    }
 
-async function sendMessage(req:Request,res:Response){
     try{
         console.log(`sending the message`)
         const results = await pool.query(
             `
-            WITH existing_chat AS (
-                SELECT cp.chat_id
+            with 
+            user_chats as (
+                --A table of private chats involving the user
+                SELECT cp.chat_id from chat_participants cp INNER JOIN chats c
+                on cp.chat_id = c.id
+                where c.is_group = FALSE and cp.user_id = $1
+            ),
+            receivers_involved as (
+                -- A table of other users involved in users_chats
+                select uc.chat_id, cp.user_id from user_chats uc INNER join chat_participants cp
+                on uc.chat_id = cp.chat_id
+                where cp.user_id <> $1
+            ),
+            final_output as (
+                select * from receivers_involved ri INNER join users u
+                on ri.user_id =u.id
+            )
+            select o.chat_id as id, o.user_id, o.name, o.surname, o.middle_name, o.picture from final_output o
+            `,
+            [id]
+        );
+        console.log(`Success`)
+        return res.status(StatusCodes.OK).json({ message: 'Sucess', chats:results.rows });
+    }
+    catch(error){
+        console.log(`failed:${error}`)
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Couldn't get chats because: ${error}` });
+    }
+}
+async function sendMessage(req:Request,res:Response){
+    console.log('checking req body for sending messages')
+    if (!req.body){return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Request body not sent'})}
+    const {id, receiver_id, message} = req.body
+    if (!id || !receiver_id){
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Unknown user'})
+    }
+    if (!message){
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({error:'Can not send an empty message'})
+    }
+
+    try{
+        console.log(`sending the message`)
+        const results = await pool.query(
+            `
+            WITH
+            chat_exists as (
+                SELECT cp.chat_id as id
                 FROM chat_participants cp
                 JOIN chats c
                     ON c.id = cp.chat_id
-                WHERE c.is_group = FALSE
+                WHERE cp.user_id IN ($1,$2)
+                    AND c.is_group = FALSE
                 GROUP BY cp.chat_id
-                HAVING
-                    COUNT(*) = 2
-                    AND COUNT(*) FILTER (WHERE cp.user_id = $1) = 1
-                    AND COUNT(*) FILTER (WHERE cp.user_id = $2) = 1
-                LIMIT 1
+                HAVING COUNT(*) = 2
             ),
-            new_chat AS (
-                INSERT INTO chats (created_by, is_group)
-                SELECT $1, FALSE
-                WHERE NOT EXISTS (SELECT 1 FROM existing_chat)
+            new_chat as (
+                INSERT INTO chats (is_group)
+                SELECT FALSE WHERE NOT EXISTS (select 1 from chat_exists)
                 RETURNING id
             ),
-            chat_to_use AS (
-                SELECT chat_id AS id FROM existing_chat
-                UNION ALL
-                SELECT id FROM new_chat
+            chosen_chat as (
+                select id from chat_exists UNION ALL select id from new_chat
             ),
-            participants AS (
+            try_adding_participants as(
                 INSERT INTO chat_participants (chat_id, user_id)
-                SELECT id, $1
-                FROM chat_to_use
-                WHERE EXISTS (SELECT 1 FROM new_chat)
-
+                SELECT chosen_chat.id, $1 from chosen_chat
+                    where EXISTS(
+                    SELECT 1 from new_chat
+                    )
+            
                 UNION ALL
-
-                SELECT id, $2
-                FROM chat_to_use
-                WHERE EXISTS (SELECT 1 FROM new_chat)
+            
+                SELECT chosen_chat.id, $2 from chosen_chat
+                    where EXISTS(
+                    SELECT 1 from new_chat
+                    )
+                RETURNING *
             )
-            INSERT INTO messages (chat_id, sender_id, body)
-            SELECT id, $1, $3
-            FROM chat_to_use
-            RETURNING chat_id;
-            `,[req.body.id, req.body.receiver_id, req.body.message]
+            INSERT INTO messages (user_id, chat_id, body)
+                SELECT $1, chosen_chat.id, $3 from chosen_chat
+            RETURNING *
+
+            `,
+            [id,receiver_id, message]
         );
         console.log(`sent`)
         console.log(results)
         return res.status(StatusCodes.OK).json({ message: 'Message sent' });
     }
     catch(error){
-        console.log(`failed`)
+        console.log(`failed:${error}`)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Couldn't send message because: ${error}` });
     }
 }
 
-export {sendMessage}
+
+export {sendMessage, getPrivateChats}

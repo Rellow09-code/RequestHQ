@@ -21,7 +21,7 @@ export default async function logIn(req:Request,res:Response){
         //Check if user exists
         const user_exist = await pool.query(
             `
-            SELECT id, name, surname, middle_name, birth_date, email, phone_number, location FROM USERS WHERE email = $1
+            SELECT id, name, surname, middle_name, birth_date, email, phone_number, location, password FROM USERS WHERE email = $1
             `,
             [email]
         )
@@ -29,18 +29,18 @@ export default async function logIn(req:Request,res:Response){
             console.log('User does not exist, please sign in')
             return res.status(StatusCodes.CONFLICT).json({'message':'bad input', 'error': 'User does not exist, please sign in'})
         }
-
+        
         //check the user's password
         const hashed_password = user_exist.rows[0].password
-        compareHashes(password, hashed_password).then((results)=>{
-            if (!results){
-                console.log('Incorrect email or password')
-                return res.status(StatusCodes.UNAUTHORIZED).json({'error':`Incorrect email or password`})
-            }
-            //Send respond back to the user
-            console.log('completed logging in the user')
-            return res.status(StatusCodes.OK).json({ message: "Profile retreived successfully", user_info:user_exist.rows[0] })
-        })
+        const correct_password = await compareHashes(password, hashed_password)
+        if (!correct_password){
+            console.log('Incorrect email or password')
+            return res.status(StatusCodes.UNAUTHORIZED).json({'error':`Incorrect email or password`})
+        }
+        //Send respond back to the user
+        console.log('completed logging in the user')
+        return res.status(StatusCodes.OK).json({ message: "Profile retreived successfully", user_info:user_exist.rows[0] })
+
         
     }
     catch(error){

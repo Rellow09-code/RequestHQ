@@ -1,16 +1,16 @@
-interface postCardType{
+interface PostCard{
     title: string,
     body: string,
     picture: File|null
 }
 
-interface postCardProfileType extends postCardType{
+interface PostCardProfile extends PostCard{
     name:string,
     middle_name: string|null,
     surname: string
 }
 
-interface postsResponse{
+interface PostsResponse{
     body: string,
     created_at: string,
     id: string,
@@ -23,8 +23,21 @@ interface postsResponse{
     user_id: string,
 }
 
-interface postResponseProp{
-    post:postsResponse
+interface PostResponseProp{
+    post:PostsResponse
 }
 
-export type {postCardType, postCardProfileType, postsResponse, postResponseProp}
+interface Chat{
+    id : string,
+    name: string|null,
+    picture: string|null,
+    is_group: boolean,
+    created_at: Date,
+    updated_at: Date
+}
+
+interface ChatProp{
+    chat: Chat
+}
+
+export type {PostCard, PostCardProfile, PostsResponse, PostResponseProp, Chat, ChatProp}

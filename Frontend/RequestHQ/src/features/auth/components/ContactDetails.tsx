@@ -1,13 +1,13 @@
 import styles from './InfoQuery.module.scss'
-import type { setStateProp } from '../types/props'
-import type { ContactType } from '../types/specific_types'
+import type { SetStateProp } from '../types/props'
+import type { Contact } from '../types/specific_types'
 import { useState } from 'react'
 import { z } from "zod";
 
-export default function ContactDetails({setPage}:setStateProp){
+export default function ContactDetails({setPage}:SetStateProp){
     let move_on = false
     //Try to get the existing info before initializing a new object
-    const [contact_info, setContactInfo] = useState<ContactType>(()=>{
+    const [contact_info, setContactInfo] = useState<Contact>(()=>{
         const saved_info = localStorage.getItem('contact_info')
         return saved_info ? JSON.parse(saved_info)
         :{
@@ -83,7 +83,7 @@ export default function ContactDetails({setPage}:setStateProp){
     const [feed_back, setFeedBack] = useState<string>('')
 
     function updateContactInfo(key:string, value:any){
-        setContactInfo((old_obj:ContactType) =>{
+        setContactInfo((old_obj:Contact) =>{
             return {...old_obj, [key]:value}
         })
     }

@@ -1,4 +1,4 @@
-interface miniUserType {
+interface MiniUser {
     id: string,
     picture: null|string,
     name: string,
@@ -6,4 +6,4 @@ interface miniUserType {
     middle_name: null|string
 }
 
-export type {miniUserType}
+export type {MiniUser}

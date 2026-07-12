@@ -1,7 +1,7 @@
-import type { userType } from "../../../shared/types/apiTypes";
-import type { postCardType } from "../types/commonTypes";
+import type { User } from "../../../shared/types/apiTypes";
+import type { PostCard } from "../types/commonTypes";
 
-export default async function postCard(card:postCardType) {
+export default async function postCard(card:PostCard) {
     const {title='', body='', picture=null} = card
     if (!body){
         return {ok: false, response: null, error:`Invalid post body`}
@@ -14,7 +14,7 @@ export default async function postCard(card:postCardType) {
         if (!user_str){
             return {ok: false, response: null, error:`Invalid user, please try signing in again`}
         }
-        const user:userType = JSON.parse(user_str)
+        const user:User = JSON.parse(user_str)
         const form_data:FormData = new FormData()
         if (picture){
             form_data.append('picture',picture)

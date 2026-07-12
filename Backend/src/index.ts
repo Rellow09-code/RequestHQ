@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import pg from "pg";
 import cors from 'cors'
 import { z } from 'zod'
 import { StatusCodes } from "http-status-codes";
@@ -9,7 +8,7 @@ import multer from "multer"
 import signIn from "./auth/signIn.ts";
 import logIn from "./auth/logIn.ts";
 import { getPosts, post } from "./features/posts.ts";
-import { sendMessage } from "./features/messages.ts";
+import { getPrivateChats, sendMessage } from "./features/messages.ts";
 
 //setup multer for file uploads
 const upload = multer({dest:'uploads/'})
@@ -46,6 +45,7 @@ app.get('/posts',getPosts)
 
 //Messaging functionality
 app.post("/sendMessage",sendMessage)
+app.get("/getPrivateChats", getPrivateChats)
 
 if (process.env.Listen == 'TRUE'){
     app.listen(PORT, () => {

@@ -1,10 +1,10 @@
 import styles from'./Card.module.scss'
 import { useState } from "react"
-import type { postCardType } from "../types/commonTypes"
+import type { PostCard } from "../types/commonTypes"
 import postCard from "../services/postCard"
 
 export default function PostCard(){
-    const [post_card, setPostCard] = useState<postCardType>({title:'', body:'',picture:null})
+    const [post_card, setPostCard] = useState<PostCard>({title:'', body:'',picture:null})
     const [feedback, setFeedback] = useState<string>('')
     async function post(){
         if (!post_card.body){
@@ -21,7 +21,7 @@ export default function PostCard(){
     }
 
     function updatePostCard(key:string, value:any){
-        setPostCard((old_obj:postCardType) =>{
+        setPostCard((old_obj:PostCard) =>{
             return {...old_obj, [key]:value}
         })
     }
