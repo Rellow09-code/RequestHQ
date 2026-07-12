@@ -4,6 +4,8 @@ import type { MiniUser } from "../../../shared/types/commonTypes";
 import searchName from "../services/searchName";
 import Loading from "../../../shared/components/Loading";
 import styles from './Search.module.scss'
+import sendMessage from "../services/sendMessage";
+import type { User } from "../../../shared/types/apiTypes";
 
 export default function Search(){
     const [users, setUsers] = useState<MiniUser[]>([]);
@@ -21,6 +23,15 @@ export default function Search(){
         }
         console.log('Failed to load users')
         setLoad(false)
+    }
+
+    async function sendChatMessage(receiver_id:string,message='Hi!'){
+        const my_id:User = JSON.parse(localStorage.getItem('user') || '{}')
+        if (!my_id.id){return alert('Failed to assess user information, try login in again')}
+        
+        const results = await sendMessage(my_id.id,receiver_id,message)
+        if (!results.ok){return alert('Something went wrong, from the response')}
+        console.log('Successfully sent')
     }
     return (
         <div className={styles.main_search}>
@@ -41,8 +52,14 @@ export default function Search(){
 
             <section className={styles.search_results}>
                 {users.map(user => (
-                    <div>
+                    <div 
                         key={user.id}
+                        onClick={()=>{
+                            if (confirm(`Do you wish to start a coversation with ${user.name} ${user.surname}?`)){
+                                sendChatMessage(user.id)
+                            }
+                        }}
+                    >
                         <ProfileUI
                             id={user.id}
                             picture={user.picture}
