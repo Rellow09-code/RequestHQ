@@ -27,10 +27,10 @@ export default function Search(){
 
     async function sendChatMessage(receiver_id:string,message='Hi!'){
         const my_id:User = JSON.parse(localStorage.getItem('user') || '{}')
-        if (!my_id.id){return alert('Failed to assess user information, try login in again')}
+        if (!my_id.id){alert('Failed to assess user information, try login in again'); return null}
         
         const results = await sendMessage(my_id.id,receiver_id,message)
-        if (!results.ok){return alert('Something went wrong, from the response')}
+        if (!results.ok){alert('Something went wrong, from the response'); return null}
         console.log('Successfully sent')
     }
     return (

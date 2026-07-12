@@ -9,12 +9,12 @@ import sendMessage from "../services/sendMessage";
 export default function ChatUI({chat, chat_message_map}:ChatProp){
     const [message, setMessage] = useState<string>('')
     const my_id:User = JSON.parse(localStorage.getItem('user') || '{}')
-    if (!my_id.id){return alert('Failed to assess user information, try login in again')}
+    if (!my_id.id){alert('Failed to assess user information, try login in again'); return null}
 
     async function sendChatMessage(){
         if (!chat){return alert('unknown chat')}
         const results = await sendMessage(my_id.id,chat.user_id,message)
-        if (!results.ok){return alert('Something went wrong, from the response')}
+        if (!results.ok){alert('Something went wrong, from the response'); return null}
         console.log('Successfully sent')
         setMessage('')
     }
@@ -36,7 +36,7 @@ export default function ChatUI({chat, chat_message_map}:ChatProp){
                     middle_name={ `${chat.middle_name}`}/>
                 <section className={styles.chat_messages}>
                     {
-                        chat_message_map[chat.id].map(message => {
+                        chat_message_map?.[chat.id]?.map(message => {
                             return (
                                 <div key={message.id}>
                                     <MessageUI body={message.body} time={message.updated_at} mine={message.user_id == my_id.id}/>

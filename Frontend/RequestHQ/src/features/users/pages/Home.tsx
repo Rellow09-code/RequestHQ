@@ -5,7 +5,7 @@ import styles from './Home.module.scss'
 import { useEffect, useState } from "react"
 import { useMoveInvalidAuth } from "../../../shared/hooks/moveInvalidAuth"
 import getPosts from "../services/getPosts"
-import type { ChatMessageMap, Chat, PostsResponse } from "../types/commonTypes"
+import type { ChatMessageMap, Chat, PostsResponse, Message } from "../types/commonTypes"
 import Card from "../components/Card"
 import type { User } from "../../../shared/types/apiTypes"
 import getChats from "../services/getChats"
@@ -26,7 +26,22 @@ export default function Home(){
     let [page, setPage] = useState(0)
     const [posts, setPosts] = useState<PostsResponse[]>([]);
     const [chats, setChats] = useState<Chat[]>([]);
-    const [chat_message_dict, setChatMessageDict] = useState<ChatMessageMap>({})
+
+    const dummy_message:Message = {
+            'id':'string',
+            'chat_id':'string',
+            'user_id':'string',
+            'body':'string',
+            'created_at':'string',
+            'name':'string',
+            'surname':'string',
+            'middle_name':'string',
+            'updated_at':'string',
+            'picture':'string'
+            }
+    const [chat_message_dict, setChatMessageDict] = useState<ChatMessageMap>({
+        '123' : [dummy_message]
+    })
 
     useEffect(() => {
         async function loadPosts() {
