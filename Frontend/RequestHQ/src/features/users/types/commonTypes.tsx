@@ -42,6 +42,7 @@ interface Chat{
 interface ChatProp{
     chat: Chat|null,
     chat_message_map:ChatMessageMap
+    setChatMessageMap:Function
 }
 
 interface MessageProps {

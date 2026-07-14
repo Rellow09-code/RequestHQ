@@ -12,6 +12,7 @@ export default function Search(){
     const [name, setName] = useState<string>('')
     const [load,setLoad] = useState<boolean>(false)
     async function searchUser() {
+        if (load){return}//prevent spam clicking
         setLoad(true)
         console.log('searching')
         const results = await searchName(name.trim())
@@ -41,6 +42,7 @@ export default function Search(){
                     placeholder="Search people..."
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onKeyDown={e=>{if (e.key=='Enter'){searchUser()}}}
                 />
 
                 <button onClick={searchUser}>

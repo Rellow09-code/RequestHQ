@@ -14,7 +14,7 @@ body{
 /* Dealing with the main header */
 
 .main_header{
-    min-height:100vh;
+    max-height:100vh;
     min-width: 100%;
     display:flex;
     justify-content:space-between;

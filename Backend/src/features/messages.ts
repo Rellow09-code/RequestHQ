@@ -191,8 +191,7 @@ async function sendMessage(req:Request,res:Response){
             [id,receiver_id, message]
         );
         console.log(`sent`)
-        console.log(results)
-        return res.status(StatusCodes.OK).json({ message: 'Message sent' });
+        return res.status(StatusCodes.OK).json({ message: 'Message sent', results:results.rows[0] });
     }
     catch(error){
         console.log(`failed:${error}`)

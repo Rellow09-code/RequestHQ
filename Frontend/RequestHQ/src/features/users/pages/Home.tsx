@@ -75,7 +75,7 @@ export default function Home(){
         initiate()
     },[])
     return(
-        <>
+        <section id={styles.main}>
             <header id={styles.main_header}>
                 <ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/>
                 <Icons setPage={setPage}/>
@@ -107,16 +107,16 @@ export default function Home(){
                     ))}
                     </section>
                     <section id={styles.chat_ui}>
-                        <ChatUI chat={current_chat} chat_message_map={chat_message_dict}></ChatUI>
+                        <ChatUI chat={current_chat} chat_message_map={chat_message_dict} setChatMessageMap={setChatMessageDict}></ChatUI>
                     </section>
                 </main>
             }
             {page==3 && 
-                <main id={styles.posting_main}><PostCard/></main>
+                <main id={styles.posting_main}><PostCard setPage={setPage}/></main>
             }
             {page==5 && 
                 <main id={styles.home_main}><Search/></main>
             }
-        </>
+        </section>
     )
 }

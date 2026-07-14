@@ -3,10 +3,14 @@
 .chat_main{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    justify-content: space-between;
+    max-height: 100%;
+}
+.chat_messages{
+    overflow: auto;
+    flex: 4;
 }
 .input_bar {
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -16,7 +20,6 @@
     box-shadow: $shadow-soft;
     position: sticky;
     z-index: 10;
-    margin-bottom: 10vh;
 }
 
 .input_bar input {
@@ -53,6 +56,9 @@
     cursor: pointer;
     transition: 0.2s ease;
     box-shadow: $shadow-soft;
+    &:disabled{
+        background-color: $color-text-secondary;
+    }
 }
 
 .input_bar button:hover {
@@ -62,4 +68,8 @@
 
 .input_bar button:active {
     transform: scale(0.97);
+}
+
+.intro_text{
+    margin: 1rem;
 }
