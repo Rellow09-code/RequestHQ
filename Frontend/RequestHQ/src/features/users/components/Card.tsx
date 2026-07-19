@@ -7,7 +7,6 @@ export default function Card({post}: PostResponseProp){
         return <></>
     }
     const {user_id, name, surname, middle_name, picture} = post
-
     return (
         <div className={styles.card}>
             <section className={styles.card_header}>
@@ -16,7 +15,7 @@ export default function Card({post}: PostResponseProp){
             </section>
             <section className={styles.card_body}>
                 <p>{post.body}</p>
-                {post.post_picture && <img src={post.post_picture}/>}
+                {(post.post_picture!='null' && post.post_picture) && <img src={post.post_picture}/> }
             </section>
             <section className={styles.card_buttons}>
                 <i className='material-icons' id={styles.add_icon}>add</i>

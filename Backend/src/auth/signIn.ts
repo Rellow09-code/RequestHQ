@@ -41,7 +41,7 @@ export default async function signIn(req:Request,res:Response){
             `
             INSERT INTO USERS (name, surname, middle_name, birth_date, email, phone_number, location, password)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING id, name, surname, middle_name, birth_date, email, phone_number, location;
+            RETURNING id, name, surname, middle_name, picture, birth_date, email, phone_number, location;
             `,
             [name, surname, middle_name, birth_date, email, phone, location, hashed_password]
         )

@@ -1,0 +1,111 @@
+@use '../../../GlobalVariables.scss' as *;
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+
+    z-index: 999;
+}
+
+.picture_menu {
+    width: 380px;
+    padding: 2rem;
+
+    background: $color_surface;
+    border-radius: 18px;
+    box-shadow: $shadow_medium;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.picture_menu h2 {
+    color: $color_text_primary;
+}
+
+.preview {
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: $color_accent;
+}
+
+.preview img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.preview .material-icons {
+    font-size: 120px;
+    color: $color_secondary;
+}
+
+.choose_button {
+    background: $gradient_primary;
+    color: white;
+
+    padding: .9rem 1.5rem;
+    border-radius: 12px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.choose_button:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow_soft;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.buttons button {
+    flex: 1;
+
+    padding: .9rem;
+
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.save {
+    background: $gradient_primary;
+    color: white;
+}
+
+.cancel {
+    background: $color_border;
+    color: $color_text_primary;
+}
+
+.buttons button:hover {
+    transform: translateY(-2px);
+}
+
+.feedback{
+    color: $color-danger;
+}

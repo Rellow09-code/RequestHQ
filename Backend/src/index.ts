@@ -10,6 +10,8 @@ import logIn from "./auth/logIn.ts";
 import { getPosts, post } from "./features/posts.ts";
 import { getAllMessages, getPrivateChats, getRecentMessages, sendMessage } from "./features/messages.ts";
 import { searchName } from "./features/users.ts";
+import { setProfilePicture } from "./features/userInfo.ts";
+import infoUpdate from "./auth/infoUpdate.ts";
 
 
 //setup multer for file uploads
@@ -40,6 +42,7 @@ app.get("/", (req, res) => {
 //Auth
 app.post("/signIn",signIn)
 app.post("/logIn",logIn)
+app.post("/infoUpdate", infoUpdate)
 
 //services
 app.post("/post", upload.single("picture"), post);
@@ -50,6 +53,9 @@ app.post("/sendMessage",sendMessage)
 app.get("/getPrivateChats", getPrivateChats)
 app.get("/getAllMessages", getAllMessages)
 app.get("/getRecentMessages", getRecentMessages)
+
+//User updates
+app.post('/setProfilePicture',upload.single("picture"),setProfilePicture)
 
 //Users
 app.get("/searchName",searchName)

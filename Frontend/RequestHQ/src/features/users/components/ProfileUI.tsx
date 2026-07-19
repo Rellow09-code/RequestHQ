@@ -9,5 +9,5 @@ export default function ProfileUI(user:MiniUser){
                 <p><b>{`${user.name} ${user.surname}`}</b></p>
             </div>
         </>
-    )
+)
 }

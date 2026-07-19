@@ -51,7 +51,6 @@ async function getPosts(req:Request,res:Response){
             LIMIT 13;
             `
         )
-        console.log(posts)
         console.log('successful')
         return res.status(StatusCodes.OK).json({message: 'Posts retrieved successfully', posts:posts.rows})
     }catch(error){

@@ -11,7 +11,6 @@ export default async function getAllMessages(chat_id:string){
         if (!response.ok){
             return {ok: false, response: response_json, error:`${response.statusText}: ${response_json.error}`}
         }
-        console.log(response_json)
         return {ok: true, response: response_json, error:null}
 
     }catch(error){

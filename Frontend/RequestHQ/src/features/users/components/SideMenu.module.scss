@@ -1,0 +1,55 @@
+@use '../../../GlobalVariables.scss' as *;
+
+.side_menu {
+    width: 280px;
+    background: $color_surface;
+    border-radius: 18px;
+    box-shadow: $shadow_medium;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.title {
+    font-size: 1.4rem;
+    color: $color_text_primary;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid $color_border;
+}
+
+.menu_item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    padding: 0.9rem 1rem;
+
+    border: none;
+    border-radius: 12px;
+
+    background: transparent;
+    color: $color_text_primary;
+
+    font-size: 1rem;
+    text-align: left;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    .material-icons {
+        color: $color_primary;
+        font-size: 1.4rem;
+    }
+
+    &:hover {
+        background: $color_accent;
+        transform: translateY(-5px);
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
