@@ -1,0 +1,175 @@
+@use '../../../GlobalVariables.scss' as *;
+
+
+/* ==========================
+   OVERLAY
+========================== */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.25);
+}
+
+
+/* ==========================
+   DIALOG
+========================== */
+
+.dialog {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    width: min(400px, 90%);
+
+    padding: 0.75rem;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow-medium);
+
+    animation: dialogAppear 0.2s ease;
+}
+
+
+/* ==========================
+   INPUT
+========================== */
+
+.dialog input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 42px;
+
+    padding: 0 1rem;
+
+    border: 1px solid var(--color-border);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: var(--input-bg);
+
+    color: var(--color-text-primary);
+
+    font-size: 1rem;
+
+    transition: 0.2s ease;
+}
+
+
+.dialog input::placeholder {
+    color: var(--color-text-secondary);
+}
+
+
+.dialog input:focus {
+
+    border-color: var(--color-primary);
+
+    box-shadow: 0 0 0 3px var(--color-primary-transparent);
+}
+
+
+/* ==========================
+   SEND BUTTON
+========================== */
+
+.dialog button {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--gradient-primary);
+
+    color: var(--color-on-primary);
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.dialog button:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-soft);
+}
+
+
+.dialog button:active:not(:disabled) {
+
+    transform: scale(0.95);
+}
+
+
+.dialog button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* ==========================
+   ANIMATIONS
+========================== */
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes dialogAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

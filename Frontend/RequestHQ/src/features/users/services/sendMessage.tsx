@@ -1,6 +1,16 @@
-export default async function sendMessage(id:string, receiver_id:string, message:string) {
+export default async function sendMessage(receiver_id:string, message:string) {
       try{
+        const id:string|null = localStorage.getItem('id')
+        if (!id){
+            alert('Something went wrong, please try sigining in again')
+            return {ok: false, response: null, error:`An error occured`}
+        }
+        if (!receiver_id){
+            alert('Unknown user (Null receiver)')
+            return {ok: false, response: null, error:`An error occured`}
+        }
         console.log('trying to send a message')
+        console.log(id)
         const url:string = import.meta.env.VITE_BACKEND_URL
         const response:Response = await fetch(`${url}/sendMessage`, {
             method : 'POST',

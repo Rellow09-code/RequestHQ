@@ -3,6 +3,7 @@
     flex: 1;
     display:  flex;
     justify-content: flex-end;
+    overflow: auto;
 }
 
 .card_buttons {
@@ -15,6 +16,7 @@
     border-top:1px solid rgba(0,0,0,.05);
 
     background:rgba(248,252,252,.6);
+    overflow: auto;
 }
 
 /* container for grouping icons */
@@ -25,6 +27,7 @@
     gap:.75rem;
 
     align-items:center;
+    overflow: auto;
 }
 
 /* base icon style */

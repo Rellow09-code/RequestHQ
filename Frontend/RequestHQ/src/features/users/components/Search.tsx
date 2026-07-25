@@ -5,12 +5,14 @@ import searchName from "../services/searchName";
 import Loading from "../../../shared/components/Loading";
 import styles from './Search.module.scss'
 import sendMessage from "../services/sendMessage";
-import type { User } from "../../../shared/types/apiTypes";
+import MessageDialog from "./MessageDialog";
 
 export default function Search(){
     const [users, setUsers] = useState<MiniUser[]>([]);
     const [name, setName] = useState<string>('')
     const [load,setLoad] = useState<boolean>(false)
+    const [showMessageDialog, setShowMessageDialog] = useState(false);
+    const [target_id, setTargetId] = useState<string>('')
     async function searchUser() {
         if (load){return}//prevent spam clicking
         setLoad(true)
@@ -26,14 +28,16 @@ export default function Search(){
         setLoad(false)
     }
 
-    async function sendChatMessage(receiver_id:string,message='Hi!'){
-        const my_id:User = JSON.parse(localStorage.getItem('user') || '{}')
-        if (!my_id.id){alert('Failed to assess user information, try login in again'); return null}
-        
-        const results = await sendMessage(my_id.id,receiver_id,message)
-        if (!results.ok){alert('Something went wrong, from the response'); return null}
-        console.log('Successfully sent')
+    async function trySendMessage(target_id:string,message:string) {
+        setLoad(true)
+        const results = await sendMessage(target_id,message)
+        if (!results.ok){
+            alert('Failed to send the message, please try again later')
+            console.log(results.error)
+        }
+        setLoad(false)
     }
+
     return (
         <div className={styles.main_search}>
             <section className={styles.search_bar}>
@@ -57,9 +61,8 @@ export default function Search(){
                     <div 
                         key={user.id}
                         onClick={()=>{
-                            if (confirm(`Do you wish to start a coversation with ${user.name} ${user.surname}?`)){
-                                sendChatMessage(user.id)
-                            }
+                            setTargetId(user.id)
+                            setShowMessageDialog(true)
                         }}
                     >
                         <ProfileUI
@@ -72,6 +75,11 @@ export default function Search(){
                     </div>
                 ))}
             </section>
+            <MessageDialog
+                show={showMessageDialog}
+                onClose={()=>setShowMessageDialog(false)}
+                onSend={(message)=>trySendMessage(target_id,message)}
+            ></MessageDialog>
         </div>
     )
 }
