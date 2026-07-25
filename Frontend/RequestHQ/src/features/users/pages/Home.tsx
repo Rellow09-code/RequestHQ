@@ -2,7 +2,7 @@ import ProfileUI from "../components/ProfileUI"
 import PostCard from "../components/PostCard"
 import Icons from "../components/Icons"
 import styles from './Home.module.scss'
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useMoveInvalidAuth } from "../../../shared/hooks/moveInvalidAuth"
 import getPosts from "../services/getPosts"
 import type { ChatMessageMap, Chat, PostsResponse, Message } from "../types/commonTypes"
@@ -31,6 +31,7 @@ export default function Home(){
     let [page, setPage] = useState(0)
     const [posts, setPosts] = useState<PostsResponse[]>([]);
     const [chats, setChats] = useState<Chat[]>([]);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const dummy_message:Message = {
             'id':'string',
@@ -64,6 +65,13 @@ export default function Home(){
         if (item){
             document.documentElement.setAttribute("data-theme", item);
         }
+    }
+
+    function scrollToRight() {
+        containerRef.current?.scrollTo({
+            left: containerRef.current.clientWidth,
+            behavior: "smooth",
+        });
     }
 
     async function loadChatData() {
@@ -127,7 +135,7 @@ export default function Home(){
     return(
         <section id={styles.main}>
             <header id={styles.main_header}>
-                <div  onClick={()=>toogleMenu(!menu)}><ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/></div>
+                <div  onClick={()=>toogleMenu(!menu)} className={styles.profile}><ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/></div>
                 <Icons setPage={setPage}/>
             </header>
             <Loading show={load} />
@@ -150,12 +158,15 @@ export default function Home(){
                     </main>
                 }
                 {page==2 && 
-                    <main id={styles.message_main}>
-                        <section id={styles.chats}>
+                    <main id={styles.message_main} ref={containerRef}>
+                        <section id={styles.chats} className="left">
                             {chats.map(chat => {
                                 console.log('hi')
                                 return    (
-                                    <div key={chat.id} onClick={()=>setCurrentChat(chat)}>
+                                    <div key={chat.id} onClick={()=>{
+                                            setCurrentChat(chat)
+                                            scrollToRight()
+                                        }}>
                                         <ProfileUI
                                             id={ chat.user_id}
                                             picture={ chat.picture}
@@ -167,7 +178,7 @@ export default function Home(){
                                 )
                             })}
                         </section>
-                        <section id={styles.chat_ui}>
+                        <section id={styles.chat_ui} className="right">
                             <ChatUI chat={current_chat} chat_message_map={chat_message_dict} setChatMessageMap={setChatMessageDict}></ChatUI>
                         </section>
                     </main>

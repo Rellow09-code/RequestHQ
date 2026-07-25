@@ -69,12 +69,12 @@ export default function LogInAuthentication(){
 
                             <section className={styles.wrapper}>
                                 <label>Email</label>
-                                <input value={email} id={styles.email} type="email" onChange={(e)=>setEmail(e.target.value)}/>
+                                <input value={email} id={styles.email} type="email" onChange={(e)=>setEmail(e.target.value)} onKeyDown={e=>{if (e.key=='Enter'){submit()}}}/>
                             </section>
 
                             <section className={styles.wrapper}>
                                 <label>Password</label>
-                                <input value={password} id={styles.password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
+                                <input value={password} id={styles.password} type="password" onChange={(e)=>setPassword(e.target.value)} onKeyDown={e=>{if (e.key=='Enter'){submit()}}}/>
                             </section>
 
                         </section>

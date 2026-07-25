@@ -69,3 +69,14 @@
 
     color:var(--color-success);
 }
+
+@media (max-width : $screen-xs) {
+    .icon{
+        margin: 0;
+        font-size: medium;
+    }
+
+    .actions {
+        gap:0;
+    }
+}

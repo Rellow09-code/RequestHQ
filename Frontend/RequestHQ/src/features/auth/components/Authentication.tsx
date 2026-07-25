@@ -92,12 +92,12 @@ export default function Authentication(props:SetStateProp){
 
                             <section className={styles.wrapper}>
                                 <label>Password</label>
-                                <input value={password} id={styles.password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
+                                <input value={password} id={styles.password} type="password" onChange={(e)=>setPassword(e.target.value)} onKeyDown={e=>{if (e.key=='Enter'){submit()}}}/>
                             </section>
 
                             <section className={styles.wrapper}>
                                 <label>Confirm Password</label>
-                                <input value={confirm_password} id={styles.confirm_password} type="password" onChange={(e)=>setConfirmPassword(e.target.value)}/>
+                                <input value={confirm_password} id={styles.confirm_password} type="password" onChange={(e)=>setConfirmPassword(e.target.value)} onKeyDown={e=>{if (e.key=='Enter'){submit()}}}/>
                             </section>
 
                         </section>

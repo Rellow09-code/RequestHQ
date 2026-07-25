@@ -45,6 +45,11 @@ main{
     align-items: stretch;
     margin: 0;
 }
+#chat_ui{
+    flex: 3;
+    max-height: 100%;
+    background-color: var(--color-background);
+}
 #chats{
     flex: 1;
     max-height: 100%;
@@ -52,8 +57,25 @@ main{
         margin-top: 0.5rem;
     }
 }
-#chat_ui{
-    flex: 3;
-    max-height: 100%;
-    background-color: beige;
+
+@media (max-width : $screen-xs) {
+    .profile{
+        max-width: 170px;
+        overflow: auto;
+    }
+    #message_main{
+        flex: 1;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+    }
+    #message_main::-webkit-scrollbar {
+        display: none;
+    }
+    #chat_ui,#chats{
+        flex: 0 0 100%;
+        width: 100%;
+        scroll-snap-align: start;
+    }
 }
