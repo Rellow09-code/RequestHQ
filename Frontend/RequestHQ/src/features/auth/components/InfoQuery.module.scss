@@ -75,7 +75,7 @@
 
     font-weight:800;
 
-    color:$color-secondary;
+    color:var(--color-secondary);
 
     line-height:1.1;
 
@@ -106,13 +106,13 @@
 
     width:min(560px,100%);
 
-    background:$color-surface;
+    background:var(--color-surface);
 
     border-radius:22px;
 
     border:1px solid rgba(0,0,0,.05);
 
-    box-shadow:$shadow-medium;
+    box-shadow:var(--shadow-medium);
 
     padding:2rem;
 
@@ -133,7 +133,7 @@
 
     font-size:2rem;
 
-    color:$color-secondary;
+    color:var(--color-secondary);
 
     margin:0;
 }
@@ -171,8 +171,8 @@
 
 .wrapper label{
 
-    color:$color-text-secondary;
-
+    color:var(--color-text-secondary);
+    
     font-weight:600;
 
     font-size:.95rem;
@@ -184,25 +184,25 @@
 
     border-radius:12px;
 
-    border:1px solid $color-border;
+    border:1px solid var(--color-border);
 
     background:white;
 
     font-size:1rem;
 
-    color:$color-text-primary;
+    color:var(--color-text-primary);
 
     outline:none;
 }
 
 .wrapper input::placeholder{
 
-    color:$color-text-secondary;
+    color:var(--color-text-secondary);
 }
 
 .wrapper input:focus{
 
-    border-color:$color-primary;
+    border-color:var(--color-primary);
 
     box-shadow:
         0 0 0 4px rgba(0,207,200,.15);
@@ -239,7 +239,7 @@
 
     font-weight:600;
 
-    box-shadow:$shadow-soft;
+    box-shadow:var(--shadow-soft);
 }
 
 /* Previous */
@@ -248,27 +248,27 @@
 
     background:white;
 
-    border:2px solid $color-danger !important;
+    border:2px solid var(--color-danger) !important;
 
-    color:$color-danger;
+    color:var(--color-danger);
 }
 
 .prev:hover{
 
-    background:$color-danger;
+    background:var(--color-danger);
 
     color:white;
 
     transform:translateY(-2px);
 
-    box-shadow:$shadow-medium;
+    box-shadow:var(--shadow-medium);
 }
 
 /* Submit */
 
 .next{
 
-    background:$gradient-primary;
+    background:var(--gradient-primary);
 
     color:white;
 }
@@ -277,7 +277,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:$shadow-medium;
+    box-shadow:var(--shadow-medium);
 }
 
 /* ==========================
@@ -298,7 +298,7 @@
 
     background:rgba(239,68,68,.08);
 
-    color:$color-danger;
+    color:var(--color-danger);
 
     font-family:inherit;
 }

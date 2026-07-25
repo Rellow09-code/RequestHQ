@@ -38,7 +38,7 @@
 
     cursor:pointer;
 
-    color:$color-text-secondary;
+    color:var(--color-text-secondary);
 
     background:transparent;
 
@@ -54,15 +54,15 @@
 
     background:rgba(0,207,200,.12);
 
-    color:$color-primary;
+    color:var(--color-primary);
 
     transform:translateY(-2px);
 
-    box-shadow:$shadow-soft;
+    box-shadow:var(--shadow-soft);
 }
 
 /* optional “primary action” feel */
 .icon:first-child:hover {
 
-    color:$color-success;
+    color:var(--color-success);
 }

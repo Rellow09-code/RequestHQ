@@ -1,11 +1,11 @@
 @use '../../../GlobalVariables.scss' as *;
 
 #main_header{
-    background: $gradient-soft;
+    background: var(--gradient-soft);
     flex: 1;
     display: flex;
     align-items: center;
-    border: $color-border solid;
+    border: var(--color-border solid);
     min-height: 0;
     max-height: 73px;
 } 

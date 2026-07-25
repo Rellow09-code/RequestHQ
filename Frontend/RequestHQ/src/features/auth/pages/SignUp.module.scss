@@ -2,16 +2,16 @@
 
 
 #main_header{
-    background: $gradient-soft;
+    background: var(--gradient-soft);
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border: $color-border solid;
+    border: var(--color-border solid);
     min-height: 0;
-    color: $color-surface;
+    color: var(--color-surface);
     margin: 0;
     position: fixed;
     top: 0;
@@ -27,10 +27,10 @@
     width: 50%;
     padding: 1rem;
 
-    background: $color_surface;
-    border: 1px solid $color_border;
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
     border-radius: 18px;
-    box-shadow: $shadow_soft;
+    box-shadow: var(--shadow_soft);
 
     button {
         display: flex;
@@ -43,8 +43,8 @@
         border: none;
         border-radius: 14px;
 
-        background: $color_surface;
-        color: $color_text_primary;
+        background: var(--color_surface);
+        color: var(--color_text_primary);
 
         font-size: 1rem;
         font-weight: 500;
@@ -59,13 +59,13 @@
 
         .material-icons {
             font-size: 1.4rem;
-            color: $color_primary;
+            color: var(--color_primary);
         }
 
         &:hover {
-            background: $gradient_soft;
+            background: var(--gradient_soft);
             transform: translateY(-3px);
-            box-shadow: $shadow_soft;
+            box-shadow: var(--shadow_soft);
         }
 
         &:active {
@@ -73,7 +73,7 @@
         }
 
         &:focus-visible {
-            outline: 2px solid $color_primary;
+            outline: 2px solid var(--color_primary);
             outline-offset: 2px;
         }
     }

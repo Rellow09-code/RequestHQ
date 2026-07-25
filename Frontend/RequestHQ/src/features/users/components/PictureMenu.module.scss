@@ -18,9 +18,9 @@
     width: 380px;
     padding: 2rem;
 
-    background: $color_surface;
+    background: var(--color_surface);
     border-radius: 18px;
-    box-shadow: $shadow_medium;
+    box-shadow: var(--shadow_medium);
 
     display: flex;
     flex-direction: column;
@@ -28,7 +28,7 @@
     gap: 1.5rem;
 }
 .picture_menu h2 {
-    color: $color_text_primary;
+    color: var(--color_text_primary);
 }
 
 .preview {
@@ -42,7 +42,7 @@
     justify-content: center;
     align-items: center;
 
-    background: $color_accent;
+    background: var(--color_accent);
 }
 
 .preview img {
@@ -53,11 +53,11 @@
 
 .preview .material-icons {
     font-size: 120px;
-    color: $color_secondary;
+    color: var(--color_secondary);
 }
 
 .choose_button {
-    background: $gradient_primary;
+    background: var(--gradient_primary);
     color: white;
 
     padding: .9rem 1.5rem;
@@ -69,7 +69,7 @@
 
 .choose_button:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow_soft;
+    box-shadow: var(--shadow_soft);
 }
 
 .buttons {
@@ -93,13 +93,13 @@
 }
 
 .save {
-    background: $gradient_primary;
+    background: var(--gradient_primary);
     color: white;
 }
 
 .cancel {
-    background: $color_border;
-    color: $color_text_primary;
+    background: var(--color_border);
+    color: var(--color_text_primary);
 }
 
 .buttons button:hover {
@@ -107,5 +107,5 @@
 }
 
 .feedback{
-    color: $color-danger;
+    color: var(--color-danger);
 }

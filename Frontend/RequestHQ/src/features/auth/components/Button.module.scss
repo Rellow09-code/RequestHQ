@@ -21,13 +21,13 @@
         box-shadow .25s,
         background .25s;
 
-    box-shadow:$shadow-soft;
+    box-shadow:var(--shadow-soft);
 
 }
 
 .signUp{
 
-    background:$gradient-primary;
+    background:var(--gradient-primary);
 
     color:white;
 
@@ -36,21 +36,21 @@
 
     transform:translateY(-3px);
 
-    box-shadow:$shadow-medium;
+    box-shadow:var(--shadow-medium);
 }
 
 .logIn{
 
     background:white;
 
-    color:$color-secondary;
+    color:var(--color-secondary);
 
-    border:2px solid $color-primary;
+    border:2px solid var(--color-primary);
 
 }
 .logIn:hover{
 
-    background:$color-accent;
+    background:var(--color-accent);
 
     transform:translateY(-3px);
 

@@ -2,9 +2,9 @@
 
 .side_menu {
     width: 280px;
-    background: $color_surface;
+    background: var(--color_surface);
     border-radius: 18px;
-    box-shadow: $shadow_medium;
+    box-shadow: var(--shadow_medium);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -13,10 +13,10 @@
 
 .title {
     font-size: 1.4rem;
-    color: $color_text_primary;
+    color: var(--color_text_primary);
     margin-bottom: 0.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid $color_border;
+    border-bottom: 2px solid var(--color_border);
 }
 
 .menu_item {
@@ -31,7 +31,7 @@
     border-radius: 12px;
 
     background: transparent;
-    color: $color_text_primary;
+    color: var(--color_text_primary);
 
     font-size: 1rem;
     text-align: left;
@@ -40,16 +40,85 @@
     transition: 0.2s ease;
 
     .material-icons {
-        color: $color_primary;
+        color: var(--color_primary);
         font-size: 1.4rem;
     }
 
     &:hover {
-        background: $color_accent;
+        background: var(--color_accent);
         transform: translateY(-5px);
     }
 
     &:active {
         transform: scale(0.98);
+    }
+}
+
+.theme_container {
+    width: 100%;
+    padding: 0.4rem 0;
+}
+
+.theme_label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 0.7rem 1rem;
+
+    color: var(--color_text_secondary);
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    .material-icons {
+        color: var(--color_primary);
+        font-size: 1.4rem;
+    }
+}
+
+.theme_buttons {
+    display: flex;
+    gap: 0.4rem;
+
+    padding: 0 0.5rem;
+}
+
+.theme_button {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.35rem;
+
+    padding: 0.7rem 0.4rem;
+
+    border: 1px solid var(--color_border);
+    border-radius: 12px;
+
+    background: var(--color_background);
+    color: var(--color_text_primary);
+
+    font-size: 0.75rem;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    .material-icons {
+        color: var(--color_primary);
+        font-size: 1.3rem;
+    }
+
+    &:hover {
+        background: var(--color_accent);
+        border-color: var(--color_primary);
+        transform: translateY(-3px);
+    }
+
+    &:active {
+        transform: scale(0.97);
     }
 }

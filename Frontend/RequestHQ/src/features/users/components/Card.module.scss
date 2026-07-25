@@ -1,40 +1,44 @@
 @use '../../../GlobalVariables.scss' as *;
 
+
 /* ==========================
    CARD CONTAINER
 ========================== */
 
 .card {
 
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
 
-    width:max(720px, 90%);
+    width: max(720px, 90%);
 
-    border-radius:20px;
+    border-radius: 20px;
 
-    background:$color-surface;
+    background: var(--color-surface);
 
-    border:1px solid rgba(0,0,0,.06);
+    border: 1px solid var(--color-border);
 
-    box-shadow:$shadow-soft;
+    box-shadow: var(--shadow-soft);
 
-    color:$color-text-primary;
+    color: var(--color-text-primary);
 
     transition:
         transform .25s ease,
         box-shadow .25s ease;
-
 }
 
-/* subtle lift on hover (very SaaS-like) */
+
+/* ==========================
+   CARD HOVER
+========================== */
+
 .card:hover {
 
-    transform:translateY(-4px);
+    transform: translateY(-4px);
 
-    box-shadow:$shadow-medium;
-
+    box-shadow: var(--shadow-medium);
 }
+
 
 /* ==========================
    HEADER
@@ -42,58 +46,65 @@
 
 .card_header {
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    gap:1rem;
+    gap: 1rem;
 
-    padding:1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem;
 
-    border-bottom:1px solid rgba(0,0,0,.05);
+    border-bottom: 1px solid var(--color-border);
 
-    background:linear-gradient(
+    background: linear-gradient(
         to bottom,
-        rgba(0,207,200,.04),
+        var(--color-primary-transparent),
         transparent
     );
 }
 
+
 .card_header h1 {
 
-    font-size:1.2rem;
+    font-size: 1.2rem;
 
-    font-weight:700;
+    font-weight: 700;
 
-    color:$color-text-primary;
+    color: var(--color-text-primary);
 
-    margin:0;
+    margin: 0;
 
-    flex:1;
+    flex: 1;
 }
 
-/* title input */
+
+/* ==========================
+   TITLE INPUT
+========================== */
+
 #post_title {
 
-    width:100%;
+    width: 100%;
 
-    font-size:1.1rem;
+    font-size: 1.1rem;
 
-    font-weight:700;
+    font-weight: 700;
 
-    border:none;
+    border: none;
 
-    outline:none;
+    outline: none;
 
-    background:transparent;
+    background: transparent;
 
-    color:$color-text-primary;
+    color: var(--color-text-primary);
 }
 
+
 #post_title::placeholder {
-    color:$color-text-secondary;
+
+    color: var(--color-text-secondary);
 }
 
 
@@ -103,88 +114,115 @@
 
 .card_body {
 
-    display:flex;
+    display: flex;
 
-    flex-direction:column;
+    flex-direction: column;
 
-    gap:1rem;
+    gap: 1rem;
 
-    padding:1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem;
 }
+
 
 .card_body p {
 
-    margin:0;
+    margin: 0;
 
-    font-size:1rem;
+    font-size: 1rem;
 
-    line-height:1.6;
+    line-height: 1.6;
 
-    color:$color-text-secondary;
+    color: var(--color-text-secondary);
 }
 
-/* TEXT AREA */
+
+/* ==========================
+   TEXT AREA
+========================== */
+
 #post_text {
 
-    width:100%;
+    width: 100%;
 
-    min-height:140px;
+    min-height: 140px;
 
-    resize:none;
+    resize: none;
 
-    border:none;
+    border: none;
 
-    outline:none;
+    outline: none;
 
-    font-size:1rem;
+    font-size: 1rem;
 
-    line-height:1.6;
+    line-height: 1.6;
 
-    color:$color-text-primary;
+    color: var(--color-text-primary);
 
-    background:transparent;
+    background: transparent;
 }
+
 
 #post_text::placeholder {
-    color:$color-text-secondary;
+
+    color: var(--color-text-secondary);
 }
 
-img{
+
+/* ==========================
+   POST IMAGE
+========================== */
+
+.card img {
+
     max-height: 80%;
+
     margin: auto;
+
+    border-radius: 12px;
+
+    object-fit: contain;
 }
 
-/* IMAGE UPLOAD SECTION */
+
+/* ==========================
+   IMAGE UPLOAD SECTION
+========================== */
+
 .image_upload {
 
-    display:flex;
+    display: flex;
 
-    flex-direction:column;
+    flex-direction: column;
 
-    gap:.5rem;
+    gap: .5rem;
 
-    padding:.75rem;
+    padding: .75rem;
 
-    border:1px dashed rgba(0,0,0,.15);
+    border: 1px dashed var(--color-border);
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    background:rgba(248,252,252,.6);
+    background: var(--color-surface-secondary);
 }
+
 
 .image_upload label {
 
-    font-size:.9rem;
+    font-size: .9rem;
 
-    color:$color-text-secondary;
+    color: var(--color-text-secondary);
 
-    font-weight:600;
+    font-weight: 600;
 }
+
 
 #post_picture {
 
-    font-size:.85rem;
+    font-size: .85rem;
+
+    color: var(--color-text-primary);
 }
+
 
 /* ==========================
    ACTION BUTTONS
@@ -192,32 +230,31 @@ img{
 
 .edit_card_buttons {
 
-    display:flex;
+    display: flex;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    gap:1rem;
+    gap: 1rem;
 
-    padding:1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem;
 
-    border-top:1px solid rgba(0,0,0,.05);
+    border-top: 1px solid var(--color-border);
 
-    background:rgba(248,252,252,.5);
+    background: var(--color-surface-secondary);
 }
+
 
 .edit_card_buttons button {
 
-    flex:1;
+    flex: 1;
 
-    padding:.9rem;
+    padding: .9rem;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    border:none;
+    font-weight: 600;
 
-    font-weight:600;
-
-    cursor:pointer;
+    cursor: pointer;
 
     transition:
         transform .2s ease,
@@ -226,43 +263,54 @@ img{
         color .2s ease;
 }
 
-/* CANCEL */
+
+/* ==========================
+   CANCEL
+========================== */
+
 #cancel_post {
 
-    background:white;
+    background: var(--color-surface);
 
-    border:1px solid $color-border;
+    border: 1px solid var(--color-border);
 
-    color:$color-text-secondary;
+    color: var(--color-text-secondary);
 }
+
 
 #cancel_post:hover {
 
-    background:$color-danger;
+    background: var(--color-danger);
 
-    color:white;
+    color: var(--color-on-danger);
 
-    transform:translateY(-2px);
+    transform: translateY(-2px);
 
-    box-shadow:$shadow-soft;
+    box-shadow: var(--shadow-soft);
 }
 
-/* POST */
+
+/* ==========================
+   POST
+========================== */
+
 #post {
 
-    background:$gradient-primary;
+    background: var(--gradient-primary);
 
-    color:white;
+    color: var(--color-on-primary);
 
-    border:none;
+    border: none;
 }
+
 
 #post:hover {
 
-    transform:translateY(-2px);
+    transform: translateY(-2px);
 
-    box-shadow:$shadow-medium;
+    box-shadow: var(--shadow-medium);
 }
+
 
 /* ==========================
    BUTTON AREA
@@ -270,33 +318,37 @@ img{
 
 .card_buttons {
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:flex-start;
+    justify-content: flex-start;
 
-    gap:1rem;
+    gap: 1rem;
 
-    padding:1rem 1.25rem;
+    padding: 1rem 1.25rem;
 
-    border-top:1px solid rgba(0,0,0,.05);
+    border-top: 1px solid var(--color-border);
 
-    background:rgba(248,252,252,.6);
+    background: var(--color-surface-secondary);
 }
 
-/* ICON BUTTONS */
+
+/* ==========================
+   ICON BUTTONS
+========================== */
+
 .card_buttons i {
 
-    font-size:24px;
+    font-size: 24px;
 
-    padding:.5rem;
+    padding: .5rem;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    color:$color-text-secondary;
+    color: var(--color-text-secondary);
 
     transition:
         background-color .2s ease,
@@ -304,53 +356,69 @@ img{
         color .2s ease;
 }
 
+
 .card_buttons i:hover {
 
-    background:rgba(0,207,200,.12);
+    background: var(--color-primary-transparent);
 
-    color:$color-primary;
+    color: var(--color-primary);
 
-    transform:translateY(-2px);
+    transform: translateY(-2px);
 }
 
-/* specific icons */
+
+/* ==========================
+   SPECIFIC ICONS
+========================== */
+
 #add_icon:hover {
-    color:$color-success;
+
+    color: var(--color-success);
 }
+
 
 #message_icon:hover {
-    color:$color-secondary;
+
+    color: var(--color-secondary);
 }
 
-.feedback{
-    margin: auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    color:red
+
+/* ==========================
+   FEEDBACK
+========================== */
+
+.feedback {
+
+    margin: 1rem auto;
+
+    color: var(--color-danger);
 }
+
 
 /* ==========================
    RESPONSIVE
 ========================== */
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
 
     .card {
 
-        width:100%;
+        width: 100%;
 
-        border-radius:16px;
+        border-radius: 16px;
     }
+
 
     .card_header {
 
-        flex-direction:column;
+        flex-direction: column;
 
-        align-items:flex-start;
+        align-items: flex-start;
     }
+
 
     .card_buttons {
 
-        justify-content:space-between;
+        justify-content: space-between;
     }
 }

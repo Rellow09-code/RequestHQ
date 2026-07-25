@@ -1,7 +1,7 @@
 @use './GlobalVariables.scss' as *;
 /* Global settings */
 body{
-    background-color: $color-background;
+    background-color: var(--color-background);
     color: var(--color-primary);
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -22,9 +22,9 @@ body{
 
     gap:4rem;
 
-    background:$gradient-primary;
+    background:var(--gradient-primary);
 
-    color:$color-surface;
+    color:var(--color-surface);
 
     overflow:hidden;
     position: fixed;

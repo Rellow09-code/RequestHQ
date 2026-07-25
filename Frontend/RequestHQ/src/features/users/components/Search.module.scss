@@ -7,17 +7,17 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    background: $color-background;
+    background: var(--color-background);
 }
 
 .search_bar {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: $color-surface;
+    background: var(--color-surface);
     padding: 1rem;
     border-radius: 16px;
-    box-shadow: $shadow-soft;
+    box-shadow: var(--shadow-soft);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -27,22 +27,22 @@
     flex: 1;
     height: 48px;
     padding: 0 1rem;
-    border: 1px solid $color-border;
+    border: 1px solid var(--color-border);
     border-radius: 12px;
-    background: $color-surface;
-    color: $color-text-primary;
-    font-size: $font-size-base;
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
     outline: none;
     transition: 0.2s ease;
 }
 
 .search_bar input::placeholder {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 }
 
 .search_bar input:focus {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary), 0.2);
 }
 
 .search_bar button {
@@ -50,18 +50,18 @@
     padding: 0 1.5rem;
     border: none;
     border-radius: 12px;
-    background: $gradient-primary;
+    background: var(--gradient-primary);
     color: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s ease;
-    box-shadow: $shadow-soft;
+    box-shadow: var(--shadow-soft);
 }
 
 .search_bar button:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow-medium;
+    box-shadow: var(--shadow-medium);
 }
 
 .search_bar button:active {
@@ -82,7 +82,7 @@
 .empty_results {
     margin-top: 2rem;
     text-align: center;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-size: 1rem;
 }
 

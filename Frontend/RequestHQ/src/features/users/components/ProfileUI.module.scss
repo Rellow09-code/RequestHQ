@@ -6,56 +6,63 @@
 
 .profile_UI {
 
-    display:flex;
-    align-items:center;
-    gap:.75rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
 
-    padding:.4rem .75rem;
+    padding: .4rem .75rem;
 
-    border-radius:999px;
+    border-radius: 999px;
 
-    background:rgba(182,255,250,.35);
+    background: var(--profile-background);
 
-    border:1px solid rgba(0,0,0,.06);
+    border: 1px solid var(--profile-border);
 
     transition:
         transform .2s ease,
         background-color .2s ease,
         box-shadow .2s ease;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    user-select:none;
+    user-select: none;
 }
 
-/* subtle hover lift */
+
+/* ==========================
+   HOVER
+========================== */
+
 .profile_UI:hover {
 
-    transform:translateY(-2px);
+    transform: translateY(-2px);
 
-    background:rgba(0,207,200,.12);
+    background: var(--profile-background-hover);
 
-    box-shadow:$shadow-soft;
+    box-shadow: var(--shadow-soft);
 }
+
 
 /* ==========================
    AVATAR
 ========================== */
 
 .profile_UI img {
+
     margin: 0;
 
-    width:36px;
-    height:36px;
+    width: 36px;
+    height: 36px;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    object-fit:cover;
+    object-fit: cover;
 
-    border:2px solid white;
+    border: 2px solid var(--profile-avatar-border);
 
-    box-shadow:0 2px 6px rgba(0,0,0,.12);
+    box-shadow: var(--profile-avatar-shadow);
 }
+
 
 /* ==========================
    TEXT
@@ -63,21 +70,25 @@
 
 .profile_UI p {
 
-    margin:0;
+    margin: 0;
 
-    font-size:.9rem;
+    font-size: .9rem;
 
-    color:$color-text-primary;
+    color: var(--color-text-primary);
 
-    font-weight:600;
+    font-weight: 600;
 
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
-/* optional subtle emphasis on name */
+
+/* ==========================
+   NAME
+========================== */
+
 .profile_UI b {
 
-    color:$color-secondary;
+    color: var(--color-secondary);
 
-    font-weight:700;
+    font-weight: 700;
 }

@@ -2,44 +2,201 @@
 // =========================
 // COLORS
 // =========================
+/* =========================================================
+   REQUESTHQ THEME SYSTEM
+   ========================================================= */
 
-$color-primary: #00cfc8;
-$color-secondary: #008b8b;
+/* =========================================================
+   REQUESTHQ DEFAULT THEME
+   ========================================================= */
 
-$color-background: #f8fcfc;
-$color-surface: #ffffff;
+:root,
+[data-theme="requestHQ"] {
 
-$color-text-primary: #1f2937;
-$color-text-secondary: #6b7280;
+    /* =========================
+       COLORS
+       ========================= */
 
-$color-accent: #b6fffa;
+    --color-primary: #00cfc8;
+    --color-secondary: #008b8b;
 
-$color-success: #22c55e;
-$color-warning: #f59e0b;
-$color-danger: #ef4444;
+    --color-background: #f8fcfc;
+    --color-surface: #ffffff;
 
-$color-border: #d1d5db;
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #6b7280;
 
-// =========================
-// SHADOWS
-// =========================
+    --color-accent: #b6fffa;
 
-$shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
-$shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.12);
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
 
-// =========================
-// GRADIENTS
-// =========================
+    --color-border: #d1d5db;
 
-$gradient-primary: linear-gradient(135deg, $color-primary, $color-secondary);
-$gradient-soft: linear-gradient(135deg, $color-accent, $color-primary);
+    /* =========================
+       SHADOWS
+       ========================= */
 
-// =========================
-// BASE
-// =========================
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+    /* =========================
+       GRADIENTS
+       ========================= */
+
+    --gradient-primary: linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-secondary)
+    );
+
+    --gradient-soft: linear-gradient(
+        135deg,
+        var(--color-accent),
+        var(--color-primary)
+    );
+
+    /* =========================
+       INPUTS
+       ========================= */
+
+    --input-bg: #1ad4b21b;
+}
+
+
+/* =========================================================
+   LIGHT THEME
+   ========================================================= */
+
+[data-theme="light"] {
+
+    /* =========================
+       COLORS
+       ========================= */
+
+    --color-primary: #00b8b0;
+    --color-secondary: #007f15;
+
+    /* Almost pure white application background */
+    --color-background: #ffffff;
+
+    /* Pure white cards, menus and surfaces */
+    --color-surface: #ffffff;
+
+    /* Dark text for strong readability */
+    --color-text-primary: #17202a;
+    --color-text-secondary: #6b7280;
+
+    /* Very subtle teal tint */
+    --color-accent: #e6fffd;
+
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+
+    /* Very light border */
+    --color-border: #e5e7eb;
+
+    /* =========================
+       SHADOWS
+       ========================= */
+
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    --shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.10);
+
+    /* =========================
+       GRADIENTS
+       ========================= */
+
+    --gradient-primary: linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-secondary)
+    );
+
+    --gradient-soft: linear-gradient(
+        135deg,
+        #ffffff,
+        var(--color-accent)
+    );
+
+    /* =========================
+       INPUTS
+       ========================= */
+
+    --input-bg: #f8ffff;
+}
+/* =========================================================
+   DARK THEME
+   ========================================================= */
+
+[data-theme="dark"] {
+
+    /* =========================
+       COLORS
+       ========================= */
+
+    --color-primary: #19d3ca;
+    --color-secondary: #0b8f8b;
+
+    /* Main background */
+    --color-background: #000000;
+
+    /* Cards, menus and panels */
+    --color-surface: #0a0a0a;
+
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #ffffff;
+
+    /* Hover states */
+    --color-accent: #12383d;
+
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+
+    /* Borders */
+    --color-border: #222222;
+
+    /* =========================
+       SHADOWS
+       ========================= */
+
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.8);
+
+    --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.9);
+
+    /* =========================
+       GRADIENTS
+       ========================= */
+
+    --gradient-primary: linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-secondary)
+    );
+
+    --gradient-soft: linear-gradient(
+        135deg,
+        #12383d,
+        #0b5558
+    );
+
+    /* =========================
+       INPUTS
+       ========================= */
+
+    --input-bg: #111111;
+}
+
+/* =========================================================
+   NON-THEME VARIABLES
+   These don't need to change dynamically.
+   ========================================================= */
 
 $font-size-base: 18px;
-$input-bg: #1ad4b2;
 //======================================================================================================================================================
 
 //Screen sizes
