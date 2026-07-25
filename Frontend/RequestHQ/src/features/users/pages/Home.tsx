@@ -27,8 +27,6 @@ export default function Home(){
     const [load,setLoad] = useState<boolean>(false) 
     const [menu, toogleMenu] = useState<boolean>(false)
     const [picture_menu, tooglePictureMenu] = useState<boolean>(false)
-    let chat_list:Chat[] = [];
-
 
     let [page, setPage] = useState(0)
     const [posts, setPosts] = useState<PostsResponse[]>([]);
@@ -59,59 +57,68 @@ export default function Home(){
         }
         console.log('Failed to load posts')
     }
-    async function loadChats(){
-        const results = await getChats(user.id)
 
-        if (results.ok && results.response?.chats) {
-            chat_list = results.response.chats
-            const chat_ids:string[] = chat_list.map((chat:Chat)=>chat.id)
-            setChats(chat_list);
-            const new_chat_message_dict = await toChatMessageMap(chat_ids)
-            localStorage.setItem('chat_messages',JSON.stringify(new_chat_message_dict))
-            return new_chat_message_dict
+    async function loadChatData() {
+        const results = await getChats(user.id);
+        if (!results.ok || !results.response?.chats) {
+            console.log('Failed to load chats');
+            return null;
         }
-        console.log('Failed to load chats')
+        const chat_list: Chat[] = results.response.chats;
+        const chat_ids = chat_list.map(chat => chat.id);
+        const messages = await toChatMessageMap(chat_ids);
+        return {
+            chats: chat_list,
+            messages
+        };
     }
-    
+
     useEffect(() => {
-        async function refreshChats() {
-            console.log("Chat refresh");
-
-            const newChats = await loadChats();
-            if (!newChats) return;
-
-            setChatMessageDict(newChats);
-        }
-
-        async function poll() {
-            while (false) {
-                await refreshChats();
-                setCurrentChat(oldChat => {
-                    if (!oldChat) return null;
-
-                    return chat_list.find(c => c.id === oldChat.id) ?? null;
-                })
-                await new Promise(resolve => setTimeout(resolve, 10000));
+    async function initiate() {
+            setLoad(true);
+            await loadPosts();
+            const data = await loadChatData();
+            if (data) {
+                setChats(data.chats);
+                setChatMessageDict(data.messages);
             }
+            setLoad(false);
         }
 
-        poll();
+        initiate();
     }, []);
 
     useEffect(() => {
-        async function initiate(){
-            setLoad(true)
-            await loadPosts();
-            let new_chats = await loadChats()
-            if (new_chats){setChatMessageDict(new_chats)}
-            setLoad(false)
+    let cancelled = false;
+
+    async function refreshChats() {
+            console.log('Refreshing...');
+            const data = await loadChatData();
+            if (!cancelled && data) {
+                setChats(data.chats);
+                setChatMessageDict(data.messages);
+            }
         }
-        initiate()
-    },[])
+
+        async function poll() {
+            while (!cancelled) {
+                await refreshChats();
+                await new Promise(resolve =>
+                    setTimeout(resolve, 10000)
+                );
+            }
+        }
+        poll();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+    
+   
     return(
         <section id={styles.main}>
-            <header id={styles.main_header} onClick={()=>toogleMenu(!menu)}>
-                <ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/>
+            <header id={styles.main_header}>
+                <div  onClick={()=>toogleMenu(!menu)}><ProfileUI id={user.id} picture={user.picture} name={user.name} surname={user.surname} middle_name={user.middle_name}/></div>
                 <Icons setPage={setPage}/>
             </header>
             <Loading show={load} />
@@ -136,17 +143,20 @@ export default function Home(){
                 {page==2 && 
                     <main id={styles.message_main}>
                         <section id={styles.chats}>
-                            {chats.map(chat => (
-                                <div key={chat.user_id} onClick={()=>setCurrentChat(chat)}>
-                                    <ProfileUI
-                                        id={ chat.user_id}
-                                        picture={ chat.picture}
-                                        name={`${chat.name}`}
-                                        surname={`${chat.surname}`}
-                                        middle_name={ `${chat.middle_name}`}
-                                    />
-                                </div>
-                        ))}
+                            {chats.map(chat => {
+                                console.log('hi')
+                                return    (
+                                    <div key={chat.id} onClick={()=>setCurrentChat(chat)}>
+                                        <ProfileUI
+                                            id={ chat.user_id}
+                                            picture={ chat.picture}
+                                            name={`${chat.name}`}
+                                            surname={`${chat.surname}`}
+                                            middle_name={ `${chat.middle_name}`}
+                                        />
+                                    </div>
+                                )
+                            })}
                         </section>
                         <section id={styles.chat_ui}>
                             <ChatUI chat={current_chat} chat_message_map={chat_message_dict} setChatMessageMap={setChatMessageDict}></ChatUI>
