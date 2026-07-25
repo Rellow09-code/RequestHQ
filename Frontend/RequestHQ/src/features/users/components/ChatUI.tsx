@@ -21,7 +21,7 @@ export default function ChatUI({chat, chat_message_map, setChatMessageMap}:ChatP
 
     async function doSendChatMessage(){
         if (!chat){return alert('unknown chat')}
-        const results = await sendMessage(user.id,chat.user_id,message)
+        const results = await sendMessage(chat.user_id,message)
         if (!results.ok){alert('Something went wrong, from the response'); return null}
         console.log('Successfully sent')
 
