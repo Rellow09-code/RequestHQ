@@ -58,6 +58,14 @@ export default function Home(){
         console.log('Failed to load posts')
     }
 
+    function setTheme(){
+        let item:string|null = localStorage.getItem('theme')
+        console.log(item)
+        if (item){
+            document.documentElement.setAttribute("data-theme", item);
+        }
+    }
+
     async function loadChatData() {
         const results = await getChats(user.id);
         if (!results.ok || !results.response?.chats) {
@@ -76,6 +84,7 @@ export default function Home(){
     useEffect(() => {
     async function initiate() {
             setLoad(true);
+            setTheme()
             await loadPosts();
             const data = await loadChatData();
             if (data) {

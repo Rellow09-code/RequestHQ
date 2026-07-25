@@ -4,7 +4,6 @@ import styles from './Loading.module.scss';
 
 export default function Loading({ show, message = "Loading..." }: LoadingProps) {
     if (!show) return null;
-
     return (
         <div className={styles.overlay}>
             <div className={styles.loaderCard}>
